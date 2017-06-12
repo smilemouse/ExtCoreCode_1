@@ -1,0 +1,157 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+	
+
+</head>
+<body >
+
+</body>
+</html>
+
+<script>
+	Ext.ns('Ext.Login');
+
+
+
+
+
+
+
+
+
+
+	Ext.onReady(function(){
+		Ext.QuickTips.init();
+		Ext.form.Field.prototype.msgTarget='under'
+
+
+		Ext.Login.form=new Ext.form.FormPanel({
+			height:200,
+			width:500,
+			layout:'form',
+			labelWidth:120,
+			bodyStyle:'padding-top:40px',
+			flex:1,
+			border:false,
+			labelAlign:'right',
+			buttonAlign:'center',
+			items:[
+				{
+					xtype:'textfield',
+					fieldLabel:'用户',
+					name:'userAccount',
+					anchor:'83%',
+					allowBlank:false,
+					blankText:'不能为空',
+					listeners:{
+						focus:function(){
+							var loginTips=Ext.Login.form.find('name','loginTips')[0];
+							if(loginTips.getValue()){
+								loginTips.setValue('');
+							}
+						}
+					}
+
+				},{
+					xtype:'textfield',
+					fieldLabel:'密码',
+					name:"userPassword",
+					inputType: 'password',
+					anchor:'83%',
+					allowBlank:false,
+					blankText:'不能为空',
+					listeners:{
+						focus:function(){
+							var loginTips=Ext.Login.form.find('name','loginTips')[0];
+							if(loginTips.getValue()){
+								loginTips.setValue('');
+							}	
+						}
+					}
+				},{
+					xtype:'displayfield',
+					name:'loginTips',
+					bodyStyle:'color:red;paading-top:4px;'
+				}
+
+			],
+			buttons:[{
+				text:'登录',
+				handler:function(){
+					Ext.Login.loadMask=new Ext.LoadMask(Ext.Login.panel.getEl(),{msg:'登录中......'});
+					//Ext.Login.loadMask.show();
+					Ext.Login.form.find('name','loginTips')[0].setValue('<h2 style="color:red">您输入的帐号或密码不正确，请重新输入</h2>');
+					Ext.Login.form.getForm().submit({
+						url:'',
+						method:'post',
+						success:function(form,action){
+							var ret=action.result;
+
+						},
+						failure:function(form,action){
+
+						},
+						clientValidation:true
+					});
+			}}]
+		});
+
+		Ext.Login.panel=new Ext.Panel({
+			height:300,
+			//border:false,
+			layout:'vbox',
+
+			layoutConfig:{
+				align:'stretch',
+				defaultMargins:{
+					top:0,
+					left:0,
+					right:0,
+					bottom:0
+				},
+				pack:'start'
+			},
+			items:[
+				{
+					xtype:"panel",
+					border:false,
+					bodyStyle:'background-color:#002060;text-align:center;',//border-bottom:4px solid #89A4A7;border-top:4px solid #89A4A7
+					height:100,
+					bodyStlye:'text-align:center;font-size:30px;',
+					html:'<div style="font-size:35px;color:white;line-height:100px;text-align:center;font-weight:900;">惠龙e通 车联网平台</div>'
+				},
+				Ext.Login.form
+			]
+
+		});
+		
+		new Ext.Viewport({
+			layout:'border',
+			items:[
+				/*
+				{
+					region:'north',
+					height:50,
+					border:false
+				},
+				*/
+				{
+					region:'center',
+					border:false,
+					layout: {
+					        align: 'middle',
+					        pack: 'center',
+					        type: 'hbox'
+					},
+					items:[Ext.Login.panel]
+				}
+			]
+		});
+	});
+
+</script>

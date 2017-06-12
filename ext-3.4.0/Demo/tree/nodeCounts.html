@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<!-- <script type="text/javascript" src="../../ext-all.js"></script> -->
+	<script type="text/javascript" src="../../ext-all-debug.js"></script>
+	<script type="text/javascript" src="treeData.js" ></script>
+
+	<script type="text/javascript" src="data.js" ></script>
+	<script type="text/javascript" src="treeCountFn.js" ></script>
+	<script type="text/javascript" src="ConstructorCount.js" ></script>
+
+	<script type='text/javascript'>
+
+		var countOnOrOffLine=new CountOnOrOffLine();
+
+
+		Ext.onReady(function(){
+			Tree= new Ext.tree.TreePanel({
+				renderTo:'Tree',
+				useArrows:true,
+				width:800,
+				height:900,
+			    autoScroll: true,
+			    animate: false,
+			    enableDD: false,
+			    containerScroll: true,
+			    border: false,
+			    rootVisible:true,
+			    root: new Ext.tree.AsyncTreeNode({
+	                nodeType: 'async',
+	                preloadChildren :true,
+	                allowChildren:true,
+	                iconCls: 'group',
+	                id: "CarId",
+	                text: 'ROOT',
+	                checked: false,
+	                expanded: true,
+	                leaf: false,
+	                children: []
+	            }),
+	            listeners :{
+            		expandnode:function(node){
+            			//console.log(node.isExpanded());
+            			countOnOrOffLine.expandUpdateCount(node);
+
+            			//expandUpdateCount(node)
+            			
+            			try{
+            				Tree.root.eachChild(function(nodes){
+								//console.log(nodes.text);
+							});
+            			}catch(e){
+
+            			}
+            		},
+            		beforeexpandnode:function(node){
+            			//console.log(node.hasChildNodes());
+            			//console.log(node.childNodes.length);
+            		}
+            	}
+
+			});
+			
+			countOnOrOffLine.registerUnTreeGroup(treeData.d);
+			
+			//registerUnNodeGroup(treeData.d)
+			Tree.root.appendChild(treeData.d);//treeData.d  data.d
+
+			
+
+			Tree.root.eachChild(function(node){
+				//console.log(node.text);
+			});
+		
+
+
+			setInterval(function(){
+				countOnOrOffLine.refreshTreeLeafRealTime(Tree);
+				//refreshTreeNodeRealTime(Tree);	
+				//console.log(Tree.getNodeById('cmp_TLYZ').parentNode)
+			},5000);
+
+			
+
+
+
+
+		});
+
+
+
+
+
+	</script>		
+
+
+
+
+
+
+
+</head>
+</head>
+<body>
+	<div id="Tree" style="height:100%;width:100%;margin:0 600px;position:absolute;">
+		
+	</div>
+
+	<input type="button"  value="nihaode" id="btn">
+</body> 
+</html>

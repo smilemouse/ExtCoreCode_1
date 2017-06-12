@@ -1,0 +1,118 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>FormPanleTest001</title>
+	<link rel="stylesheet" href="../../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../../ext-all.js"></script>
+	<script type="text/javascript" src="../js/jquery-1.11.2.js"></script>
+	
+	<script>
+		Ext.onReady(function(){
+			Ext.QuickTips.init();
+			Ext.form.Field.prototype.msgTarget='side';
+			Ext.apply(Ext.QuickTips.getQuickTip(),{
+				maxWidth:400,
+				minWidth:200,
+				showDelay:100,
+				trackMouse:true
+			});
+
+
+
+			var formpanel=new Ext.form.FormPanel({
+				title:'验证表单',
+				renderTo:'body',
+				height:400,
+				width:800,
+				frame:true,
+				labelAlign:'right',
+				labelWidth:50,
+				items:[
+					{
+						xtype:'textfield',
+						fieldLabel:'姓名',
+						allowBlanK:false,
+						validateOnBlur:true,
+						id:'name',
+						name:'name',
+						validator:function(val){
+								if(!Ext.util.Format.trim(val)){
+									return '请输入信息';
+								}
+						}
+					},{
+						xtype:'htmleditor',
+						height:100,
+						widht:200,
+						anchor:'98%',
+						name:'htmleditor',
+						lableWidth:'怨言'
+					}
+				],
+				buttons:[
+					{
+						text:'确定',
+						formBind:true,
+						handler:function(){
+							formpanel.getForm().el.dom[0].value='xuhaonihaoshuaidea';
+							formpanel.getEl().removeClass();
+							
+
+							for(var name in formpanel.getEl()){
+								if(name==="appendChild"){
+									$('body').append('<pre>'+name+':'+formpanel.getEl()[name]+'</pre>');	
+								}
+								
+							}
+
+
+
+
+
+
+						/*formpanel.getForm().submit({
+								url:'http://www.baidu.com',
+								timeout:50000,
+								method:'post',
+								waitMsg:'数据操作中，请稍等',
+								success:function(form,action){
+									alert(form);
+								},
+								failure:function(form,action){
+									alert(form);
+								}
+							});*/
+
+
+						},
+
+					}
+				]
+			});
+
+			Ext.QuickTips.register({
+				target:Ext.getCmp('name'),
+				title:'错误提示',
+				text:'<h1>请输入信息ok</h1>',
+				dismissDelay:10000
+			});
+			Ext.QuickTips.unregister(Ext.getCmp('name'));
+
+			
+
+
+
+
+
+		});
+				width:300,
+	</script>
+</head>
+<body>
+	<div id="body">
+		
+	</div>
+	
+</body>
+</html>

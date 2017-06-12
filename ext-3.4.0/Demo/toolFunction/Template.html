@@ -1,0 +1,50 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	
+	<script type="text/javascript" src="../../adapter/ext/ext-base-debug.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+	<script type="text/javascript" src="../../ext-all-debug.js"></script>
+</head>
+<body>
+	<div id="div1"></div>
+</body>
+</html>
+<script>
+	var tpl=new Ext.XTemplate(
+		'<div style="border:1px solid red">'+
+			'<tpl for=".">'+
+				'<h2>{header}</h2>'+
+			'</tpl>'+
+		'</div>'
+	);
+
+	var data=[['xuhao'],['xuhao'],['xuhao'],['xuhao'],['xuhao'],['xuhao'],['xuhao']]
+	var store=new Ext.data.Store({
+		proxy:new Ext.data.MemoryProxy(data),
+		reader:new Ext.data.ArrayReader({
+			fields:[{name:'header'}]
+		})
+	});
+	store.load();
+
+	var dataView=new Ext.DataView({
+		renderTo:'div1',
+        id:'banksView',  
+        store: store,  
+        trackOver:true,  
+        tpl: tpl,  
+        multiSelect:true,  
+        itemSelector: 'div.bank',  
+        selectedItemCls:'bank-selected',  
+        overItemCls: 'bank-hover'  
+	});
+
+
+
+
+
+
+</script>

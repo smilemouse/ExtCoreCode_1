@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<!-- <script type="text/javascript" src="../../ext-all.js"></script> -->
+	<script type="text/javascript" src="../../ext-all-debug.js"></script>
+
+	<script type="text/javascript" src="pagingStore.js"></script>
+
+
+
+
+
+
+</head>
+</head>
+<body>
+	<div id="Tree" style="height:100%;width:100%;margin:0 600px;position:absolute;">
+		
+	</div>
+
+	<input type="button"  value="nihaode" id="btn" id="my-div">
+</body> 
+</html>
+
+
+	<script type='text/javascript'>
+		Ext.onReady(function(){
+			Ext.form.Field.prototype.msgTarget = 'under';
+	        Ext.QuickTips.init();
+	        Ext.apply(Ext.QuickTips.getQuickTip(), {
+			    showDelay: 50,
+			    dismissDelay:5*60*1000,
+			    trackMouse: true
+			});
+
+			store.allData.remove(record);
+
+			grid.on('rowclick',function(){
+				var record=grid.getSelectionModel().getSelected().data['Name'];
+				console.log(record);
+			})
+
+			
+
+			//grid.getBottomToolbar().doLoad(0);
+		});
+        
+
+
+
+
+
+	var sData=[];
+
+	for (var i = 0; i < 30; i++) {
+		sData.push({Name:'xh'+i,No:i,Desc:'HHH'+i});	
+	}
+
+
+
+
+	var store=new Ext.ux.data.PagingJsonStore({
+		 id:'Name',
+		 idMaps:{},
+	 	 fields:[
+	 			{name:'Name'},
+	 			{name:'No'},
+	 			{name:'Desc'}
+	 		],
+	    lastOptions: {params: {start: 0, limit: 10}}
+
+	 	
+	 });
+
+	//store.loadData();
+	
+	store.loadData(sData);
+
+	 
+	var grid = new Ext.grid.GridPanel({
+        width:700,
+        height:500,
+        renderTo:'Tree',
+        title:'ExtJS.com - Browse Forums',
+        store: store,
+        viewConfig: {
+		　　markDirty: false
+		},
+        columns:[{
+            id: 'No', // id assigned so we can apply custom css (e.g. .x-grid-col-topic b { color:#333 })
+            header: "No",
+            dataIndex: 'No',
+            width: 420,
+            sortable: true
+        },{
+            header: "Name",
+            dataIndex: 'Name',
+            width: 100,
+            hidden: false,
+            sortable: true,
+            renderer:function(val,metadata,record,rowIndex,colIndex,store){
+            	
+
+
+
+
+            	metadata.attr="ext:qtip='信息："+val+"'";
+
+
+
+
+
+            	return "<span style='color:red'>"+val+"</span>";
+            }
+        },{
+            header: "Desc",
+            dataIndex: 'Desc',
+            width: 70,
+            align: 'right',
+            sortable: true
+        }],
+
+        // paging bar on the bottom
+        bbar: new Ext.PagingToolbar({
+            pageSize: 10,
+            store: store,
+            displayInfo: true,
+            displayMsg: 'Displaying topics {0} - {1} of {2}',
+            emptyMsg: "No topics to display"
+        })
+    });
+
+
+	 //console.log(store.getRange(0,15));
+	 //console.log(store);
+
+
+
+	 //console.log();
+
+
+	 console.log(store.allData.get('sasdfasd'));
+	 var index=0;
+	 store.allData.each(function(re){
+	 	//console.log(re.data['Name']);
+	 });
+
+
+	//console.log(store.collect('Name')) ;
+
+
+	var sss='xxxxxxxx';
+
+	console.log(sss.indexOf('hh'));
+	var record=store.allData.get(20);
+
+
+/*	 setInterval(function () {
+	 	index++
+	 	//store.allData.get(12).set('Name','xxxhhhkkk');
+	 	//store.allData.collect('No');
+	 	store.add(new Ext.data.Record({
+	 		Nmae:'add'+index,
+	 		No:index,
+	 		Desc:index
+	 	}));
+		grid.getBottomToolbar().doRefresh();
+		//grid.getBottomToolbar().onChange();
+	 },1000);*/
+
+
+
+
+
+	</script>		

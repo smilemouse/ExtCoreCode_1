@@ -1,0 +1,116 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+</head>
+<body>
+	<div id="div" style="border: 1px solid red;width: 100px; height: 100px "></div>
+	<div id="div1" style="border: 1px solid red;width: 100px; height: 100px "></div>
+</body>
+</html>
+<script>
+	Ext.addBehaviors({
+		'#div@click':function(){
+			alert('nimeide');
+		}
+	});
+	var obj0={
+		'a':1,
+		'b':2
+	}
+	var obj1={
+		'a':3,
+		'c':4,
+		'd':{
+			e:'5'
+		}
+	}
+	Ext.apply(obj0,obj1);//如果属性重复了则会重复----.是浅拷贝  applyIf 也是浅拷贝
+	obj0.d.e=6
+	console.log(obj1.d.e)
+	console.log(obj1);
+	console.log(obj0);
+	var arrs0=[1,2,3,4,5,6]
+	console.log(arrs0)
+	var arr1=Ext.clean(arrs0)
+	var obj3={};
+	obj3=Ext.copyTo({},'x,y,z');
+	console.log(obj3);
+	var arr3=[1,2,3,2,1,6]
+	console.log(Ext.unique(arr3));
+	panel=Ext.create({
+		xtype:'form'
+	},{'labelWidth':60});
+	console.log(panel);
+	console.log(Ext.getDoc());
+	var dt=new Date();
+	console.log(dt.getDayOfYear());
+	arr3.remove(2);
+	console.log(arr3);
+	Ext.AbstractManager();
+	
+	var oDatePicker=new Ext.DatePicker ({
+		renderTo:'div1',
+		todayText:'今天',
+		okText:'确定',
+		cancelText :'取消'
+	})
+	var p = new Ext.Panel({
+    title: 'Panel with Button Group',
+    width: 300,
+    height:200,
+    renderTo: document.body,
+    html: 'whatever',
+    tbar: [{
+        xtype: 'buttongroup',
+        columns: 3,
+        title: 'Clipboard',
+        items: [{
+            text: 'Paste',
+            scale: 'large',
+            rowspan: 3, iconCls: 'add',
+            iconAlign: 'top',
+            cls: 'x-btn-as-arrow'
+        },{
+            xtype:'splitbutton',
+            text: 'Menu Button',
+            scale: 'large',
+            rowspan: 3,
+            iconCls: 'add',
+            iconAlign: 'top',
+            arrowAlign:'bottom',
+            menu: [{text: 'Menu Item 1'}]
+        },{
+            xtype:'splitbutton', text: 'Cut', iconCls: 'add16', menu: [{text: 'Cut Menu Item'}]
+        },{
+            text: 'Copy', iconCls: 'add16'
+        },{
+            text: 'Format', iconCls: 'add16'
+        }]
+    }]
+});
+
+var btn = new Ext.CycleButton({
+    showText: true,
+    prependText: 'View as ',
+    renderTo: document.body,
+    items: [{
+        text:'text only',
+        iconCls:'view-text',
+        checked:true
+    },{
+        text:'HTML',
+        iconCls:'view-html'
+    }],
+    changeHandler:function(btn, item){
+        Ext.Msg.alert('Change View', item.text);
+    }
+});
+
+
+console.log(Ext.get('div'));
+
+</script>

@@ -1,0 +1,93 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+
+</head>
+<body>
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+</body>
+</html>
+<script>
+
+	var divEle=Ext.Element.get('div1');
+
+	var divEle1=Ext.get('div1');
+
+	console.dir(divEle); //dom id
+	console.dir(divEle1); //dom id
+
+	var myDivEle=Ext.get('div1');
+
+	Ext.get('div2');
+
+	console.dir(myDivEle.dom.innerHTML); //dom id
+	console.dir(myDivEle.dom.innerHTML); //dom id
+
+	var myDivEleFly=Ext.fly('div1');
+
+	Ext.fly('div2');
+
+	console.dir(myDivEleFly.dom.innerHTML); //dom id
+	console.dir(myDivEleFly.dom.innerHTML); //dom id
+
+
+
+	 var LoadTool={};
+
+	 LoadTool.MsgAlert=function(config){
+	 	/*
+	 	*	Ext.MessageBox.INFO
+		*	Ext.MessageBox.WARNING
+		*	Ext.MessageBox.QUESTION
+		*	Ext.MessageBox.ERROR
+		*
+	 	* 
+	 	*/
+	 	var _config=Ext.apply({
+	 		tipType:'WARNING',
+	 		btns:1,
+	 		msg:'',
+	 		color:'red',
+	 		callback:null
+	 	},config),
+
+ 		color=_config.color,
+ 		msg=_config.msg,
+ 		buttons=_config.btns===1?{'ok':'确定'}:{'ok':'确定','cancel':'取消'},
+ 		fn=_config.callback,
+ 		icon=Ext.MessageBox[_config.tipType];
+
+
+ 		Ext.MessageBox.show({
+	        title: "提示",
+	        msg: "<div style='color:"+color+";font-size:18px;text-align:left'>"+msg+"</div>",
+	        width:350,
+	        buttons: buttons,    //对话框的按钮组合
+	        closable: false,                        //是否可关闭
+	        icon: icon,
+	        iconCls: "add16",
+	        fn:fn
+	    });
+
+ 	
+	 }
+
+	LoadTool.MsgAlert({msg:'hahhahah',btns:2,color:'black',callback:function(id,text,opts){
+		console.log(id);
+		console.log(text);
+		console.log(opts);
+	}});
+
+
+
+
+
+
+
+</script>

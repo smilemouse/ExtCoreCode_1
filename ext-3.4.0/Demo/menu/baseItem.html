@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+<!-- 	<script type="text/javascript" src="../../ext-all-debug.js"></script> -->
+
+
+
+
+
+
+</head>
+</head>
+<body>
+	<div id="Menu" style="height:100px;width:100%;">
+		Menu
+	</div>
+	<div id="datePicker" style="height:100px;width:175px;">
+		Menu
+	</div>
+	<div id="Emotion" style="height:100px;width:175px;">
+		Emotion
+	</div>		
+	<div id="container" style="height:100px;width:175px;">
+		container
+	</div>		
+</body> 
+</html>
+
+
+	<script type='text/javascript'>
+		Ext.ns('Ext.EmotionTextBox');
+
+		var menu=new Ext.menu.Menu({
+			renderTo:'Menu', 
+			width:100,
+			height:100,
+			floating:false,
+			text:'Menu',
+			items:[
+				new Ext.menu.TextItem({text:'nihao'}),
+				new Ext.menu.BaseItem({html:'<h1>哈哈哈哈</h1>'})
+			]
+
+		});
+
+
+		var datePicker=new Ext.DatePicker({
+			//renderTo:'datePicker',
+			showToday:false,
+			format:'Y-m-d H-m-s',
+			listeners:{
+				select:function(datePicker,selectDate){
+					console.log(selectDate.format('Y-m-d'));
+				}
+
+			}
+		});
+
+		Ext.EmotionTextBox=Ext.extend(Ext.BoxComponent,{
+			initComponent:function(){
+				console.log('initComponent');
+				Ext.EmotionTextBox.superclass.initComponent.call(this);
+			},
+			onRender:function(container,position){
+				console.log('onRender');
+				Ext.EmotionTextBox.superclass.onRender.apply(this,arguments);
+			}
+		});
+		Ext.reg('emotiontextbox','Ext.EmotionTextBox');
+
+		var emotionTextBox=new Ext.EmotionTextBox({
+			html:'你好的啊',
+			title:'title'
+		});
+		emotionTextBox.render('Emotion');
+
+		var container=new Ext.Panel({
+			//title:"nihao",
+			renderTo:"container",
+			height:100,
+			width:200,
+			frame:false,
+			collapsible:true,
+			html:'<h2>H2</h2>',
+			tbar:new Ext.Toolbar({frame:true,items:[{text:'submit'}]})
+		});
+
+	</script>		

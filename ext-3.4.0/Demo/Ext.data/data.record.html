@@ -1,0 +1,82 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.data.Record</title>
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+
+
+
+
+
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    
+	<link rel="stylesheet"  type="text/css"  href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/ext-3.4.0/resources/css/ext-all.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/MainPageStyle.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/tips.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/Query.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/Style.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/ext-3.4.0/DateTime/Spinner.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/syronex-colorpicker.css" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/css/styleGisMap.css?rand=123" />
+    <link rel="stylesheet"  type="text/css"  href="../../Scripts/slideBar/css/jquery.nstSlider.min.css" />
+    
+
+	<script  type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6E9B91E77B4e0d3890e0112fa7594024"></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/DistanceTool_min.js"></script>
+    <script  type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+    <script  type="text/javascript" src="http://api.map.baidu.com/library/RectangleZoom/1.2/src/RectangleZoom_min.js"></script>
+    
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/adapter/ext/ext-base.js"></script>
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/ext-all-debug.js"></script>
+    <script  type="text/javascript" src="../../Scripts/js/jquery-1.8.3.min.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/DateTime/Spinner.js"></script>
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/DateTime/SpinnerField.js"></script>
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/DateTime/DateTimeField.js"></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/syronex-colorpicker.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/js/LBSConst.js"></script>
+    <script  type="text/javascript" src="../../Scripts/js/leftTreeCommon.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/js/JSCommon.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/BISSever.js?rand=321" ></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/BGis.js?rand=654"></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/FunctionServe.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/slideBar/js/jquery.nstSlider.min.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/jquery/multiChannelVideo.js" ></script>
+    <script  type="text/javascript" src="../../Scripts/ext-3.4.0/ext-lang-zh_CN.js" ></script>
+</head>
+<body>
+	
+</body>
+</html>
+<script type='text/javascript'>
+	//创建一个record
+	var oPersonR=Ext.data.Record.create([
+			{name:'name'},
+			{name:'age'}
+		]);
+	var oRecord=new oPersonR({name:'xuhao',age:18});
+	oRecord.set('age',36);
+	console.log(oRecord.get('age'));
+	//--->创建本地store的过程
+	var data=[['xh',22],['dai',18]]
+	var store=new Ext.data.Store({
+		proxy:new Ext.data.MemoryProxy(data),
+		reader:new Ext.data.ArrayReader({},oPersonR)
+	});
+	store.load();
+	console.log(store.getCount());
+
+
+
+	Ext.Msg.alert('提示','ninmaondfaosdf',function(){
+		alert('hahha')
+	});
+
+
+
+	
+</script>

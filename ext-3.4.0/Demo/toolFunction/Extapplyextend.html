@@ -1,0 +1,90 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	
+	<script type="text/javascript" src="../../adapter/ext/ext-base-debug.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+	<script type="text/javascript" src="../../ext-all-debug.js"></script>
+</head>
+<body>
+	<input type="button" value="click1">
+	<input type="button" value="click2">
+	<input type="button" value="click3">
+	<input type="button" value="click4">
+	<input type="button" value="click5">
+
+</body>
+</html>
+<script>
+
+
+		var inputs=document.getElementsByTagName('input');
+
+		for(var i=0;i<inputs.length;i++){
+			inputs[i].addEventListener('click',function(){
+				console.log(this.value);
+			},false);
+		}
+		var targetObj={
+			name:['1','2']
+		}
+		
+		var newObj={
+			sex:['xx']
+		}
+
+		//var combine=Ext.apply(targetObj,newObj);
+
+
+		var combine=Ext.override(targetObj,newObj);
+		
+		newObj.sex.push('hhh');
+
+		console.log(targetObj);
+		console.log(newObj);
+		console.log(combine);
+
+
+
+		function Animal(name,color){
+			this.name=name;
+			this.color=color;
+		}
+
+
+
+		console.log(cat);
+
+		var Cat=Ext.extend(Animal,{
+			sex:'F'
+		});
+
+
+		var cat=new Cat('xuhao','red');
+
+		console.log(cat.name);
+
+
+        var c = new Ext.util.MixedCollection();  
+        //增加一条数据  
+        c.add(1);  
+        //可以使用addAll增加一个数组或者一个JSON对象  
+        c.addAll([2,3]);  
+        c.addAll({json:4});  
+        //insert函数,允许用户添加数据的位置  
+        c.insert(0,100);  
+        var result = [];  
+        for (var i = 0; i < c.getCount(); i++) {  
+            result.push(c.get(i));  
+        }  
+        alert(result);  
+
+
+
+
+
+
+
+</script>

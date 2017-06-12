@@ -1,0 +1,86 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Ext.fn</title>
+	<link rel="stylesheet" href="../../resources/css/ext-all.css">
+	<script type="text/javascript" src="../../adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../ext-all.js"></script>
+</head>
+<body>
+	<div id="div0" style="border: 1px solid red;width: 100px; height: 100px " value='nihao'>1231231</div>
+	<div id="div1" style="border: 1px solid red;width: 100px; height: 100px "></div>
+	<input type="button" value="click" id='click'>
+
+</body>
+</html>
+<script>
+	Ext.onReady(function(){
+		var div=Ext.get('div0');
+		//div.slideIn();
+		var val=div.getValue(true);
+		var tpl=new Ext.Template(
+			"<h3>",
+				"<a href='{href} title='{title}' id='{id}'>{value}</a>",
+			"</h3>"
+		);
+		tpl.compile();
+		tpl.append(div,{href:"http://www.baidu.com",title:"baidu",id:"baidu",value:'baidu'});
+		tpl.overwrite(div,["http://www.baidu.com","baidu","baidu",'baidu']);
+
+		var Name={
+			name:'xuhao'
+		}
+		
+		var task={
+			run:function(){
+				console.log(arguments);
+				console.log(this.name);
+			},
+			interval:1000,
+			args:['ni','ma'],
+			scope:Name,
+			duration:10*1000,
+			repeat:5
+		}
+
+
+		Ext.TaskMgr.start(task);
+		Ext.TaskMgr.stop(task);
+
+
+		new Ext.Panel({
+			title:'xuhao',
+			renderTo:'div1',
+			width:600,
+			height:600,
+			layout:'hbox',
+			layoutConfig:{
+				align:'stretch',
+				defaultMargins:{
+					top:0,
+					left:200,
+					right:200,
+					bottom:0
+				},
+				pack:'start'
+			},
+			items:[
+				{
+					xtype:'fieldset',
+					flex:1,
+					title:'xuhao1'	
+				},
+				{
+					xtype:'fieldset',
+					flex:1,
+					title:'xuhao2'	
+				}
+			]
+		});
+
+
+
+
+
+	});
+</script>

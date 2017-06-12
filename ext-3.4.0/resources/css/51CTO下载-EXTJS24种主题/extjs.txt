@@ -1,0 +1,4 @@
+Extjs主题.rar:
+   使用把Css添加到Ext/resources/css文件夹下，把图片添加到Ext/resources/images文件夹下；在页面直接引用css就可以了
+   如果是动态的话弄个下拉框 然后 Ext.util.CSS.swapStyleSheet("theme", "Ext/resources/css/" + css); 就ok
+
