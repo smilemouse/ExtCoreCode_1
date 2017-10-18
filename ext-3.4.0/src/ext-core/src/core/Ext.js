@@ -48,7 +48,7 @@ Ext.apply = function(o, c, defaults){
 };
 
 (function(){
-    var idSeed = 0, //id¼ÆÊıÆ÷
+    var idSeed = 0, //idï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         toString = Object.prototype.toString,
         ua = navigator.userAgent.toLowerCase(),
         check = function(r){
@@ -371,7 +371,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Boolean} overwrite (optional) Items of the same name will overwrite previous values instead of creating an an array (Defaults to false).
          * @return {Object} A literal with members
          */
-        urlDecode : function(string, overwrite){//overwrite¾ßÓĞ¶à¸öÏàÍ¬µÄ²ÎÊı true±íÊ¾¸²¸Ç Ö»±£ÁôµÚÒ»¸ö false»áÒÔÊı×éµÄĞÎÊ½±£´æ
+        urlDecode : function(string, overwrite){//overwriteé˜²æ­¢å‚æ•°é‡å trueè¡¨ç¤ºåé¢çš„è¦†ç›–å‰é¢ï¼Œfalse è¡¨ç¤ºä»¥æ•°ç»„çš„æ–¹å¼å­˜å‚¨
             if(Ext.isEmpty(string)){
                 return {};
             }
@@ -411,9 +411,9 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Iterable} the iterable object to be turned into a true Array.
          * @return (Array) array
          */
-         toArray : function(){//ÊÇ½«×Ö·û´®¸îÁÑÎªÊı×é
+         toArray : function(){
              return isIE ?
-                 function(a, i, j, res){
+                 function(a, i, j, res){ //IE6-8 ä¸èƒ½è½¬æ¢domä¼ªç±»æ•°ç»„ï¼Œä¼šæŠ¥ä¼ªæ•°ç»„ä¸æ˜¯jså¯¹è±¡ã€‚åŒæ—¶ç¬¬äºŒä¸ªå‚æ•°ä¸èƒ½æ˜¯null/undefined ç°ä»£æµè§ˆå™¨ä¼šè½¬æ¢ä¸º0å¼€å§‹åˆ°æœ€å
                      res = [];
                      for(var x = 0, len = a.length; x < len; x++) {
                          res.push(a[x]);
@@ -426,7 +426,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          }(),
 
         isIterable : function(v){
-            //check for array or arguments   calleeÊÇarguments ÌØÓĞµÄÊôĞÔ
+            //check for array or arguments   calleeï¿½ï¿½arguments ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½
             if(Ext.isArray(v) || v.callee){
                 return true;
             }
@@ -467,7 +467,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
                 return;
             }
             if(!Ext.isIterable(array) || Ext.isPrimitive(array)){//isPrimitive  string  number bealoon
-                array = [array];
+                array = [array];//å°†åŸºç¡€ç±»å‹çš„æ•°æ®æ”¾åˆ°æ•°ç»„ä¸­
             }
             for(var i = 0, len = array.length; i < len; i++){
                 if(fn.call(scope || array[i], array[i], i, array) === false){
@@ -548,7 +548,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
                     var e = DOC.getElementById(el);
                     // IE returns elements with the 'name' and 'id' attribute.
                     // we do a strict check to return the element with only the id attribute
-                    if (e && isIE && strict) { //ÔÚIE7ÏÂÃænameºÍidÊÇÒ»ÑùµÄ ËùÒÔÒªÍ¨¹ıattribute À´ÕÒidµÄÖµÊÇ·ñÒ»Ñù
+                    if (e && isIE && strict) { //ï¿½ï¿½IE7ï¿½ï¿½ï¿½ï¿½nameï¿½ï¿½idï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ÒªÍ¨ï¿½ï¿½attribute ï¿½ï¿½ï¿½ï¿½idï¿½ï¿½Öµï¿½Ç·ï¿½Ò»ï¿½ï¿½
                         if (el == e.getAttribute('id')) {
                             return e;
                         } else {
@@ -627,7 +627,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
          * @return {Boolean}
          */
-        isEmpty : function(v, allowBlank){  //allowBlank ÔÊĞí±È½Ï¶ÔÏóÎª¿Õ×Ö·û´®
+        isEmpty : function(v, allowBlank){  //allowBlank ï¿½ï¿½ï¿½ï¿½È½Ï¶ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½
             return v === null || v === undefined || ((Ext.isArray(v) && !v.length)) || (!allowBlank ? v === '' : false);
         },
 
@@ -843,7 +843,7 @@ Company.data.CustomStore = function(config) { ... }
 
 Ext.ns('Ext.util', 'Ext.lib', 'Ext.data', 'Ext.supports');
 
-Ext.elCache = {};//Ò³ÃæËùÓĞÔªËØ»º´æ
+Ext.elCache = {};
 
 /**
  * @class Function
@@ -875,7 +875,7 @@ Ext.apply(Function.prototype, {
      * <b>If omitted, defaults to the scope in which the original function is called or the browser window.</b>
      * @return {Function} The new function
      */
-    createInterceptor : function(fcn, scope){  //Interceptor À¹½Ø »úÖÆ
+    createInterceptor : function(fcn, scope){  //Interceptor ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var method = this;
         return !Ext.isFunction(fcn) ?
                 this :
@@ -954,16 +954,16 @@ btn.on('click', sayHi.createDelegate(btn, ['Fred']));
      * if a number the args are inserted at the specified position
      * @return {Function} The new function
      */
-    createDelegate : function(obj, args, appendArgs){ //Delegate Î¯ÍĞ»úÖÆµÄÊµÏÖ
+    createDelegate : function(obj, args, appendArgs){ //Delegate
         var method = this;
         return function() {
             var callArgs = args || arguments;
-            if (appendArgs === true){
+            if (appendArgs === true){//å°†æ–°å¢çš„å‚æ•°æ·»åŠ åˆ°ç¬¬ä¸€ä¸ªå‚æ•°ä½ç½®
                 callArgs = Array.prototype.slice.call(arguments, 0);
                 callArgs = callArgs.concat(args);
             }else if (Ext.isNumber(appendArgs)){
                 callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
-                var applyArgs = [appendArgs, 0].concat(args); // create method call params
+                var applyArgs = [appendArgs, 0].concat(args); // create method call params æ’å…¥çš„ä½ç½®
                 Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
             }
             return method.apply(obj || window, callArgs);

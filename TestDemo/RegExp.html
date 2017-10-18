@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>正则表达式</title>
+</head>
+<body>
+	
+</body>
+</html>
+
+
+<script type='text/javascript'>
+
+ function myAddEvent(obj,ev,fn) {
+	if(obj.attachEvent)
+	{
+		obj.attachEvent("on" + ev,fn);
+	}
+	else
+	{
+		obj.addEventListener(ev,fn,false);
+	}
+}
+var banContextmenu=function(e){
+	var ev=e||event;
+	ev.returnValue=false;  
+	return false;  
+}
+var clickEv=function(e){
+	var ev=e||event;
+	var keyCode=e.button;
+	
+	alert(keyCode);
+	
+	if(keyCode==2||keyCode==3){
+		alert('禁止右键');
+	}else{
+		alert('您好!');
+	}
+}
+
+setTimeout(function(){
+	window.close();
+},2*60*1000);
+
+myAddEvent(document,'contextmenu',banContextmenu);
+myAddEvent(document,'mousedown',clickEv);
+
+
+</script>
+
+
+
+
+
+

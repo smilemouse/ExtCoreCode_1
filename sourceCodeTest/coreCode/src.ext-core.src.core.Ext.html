@@ -40,6 +40,21 @@
 								method.apply(me || window, args) :
 								null;
 					};
+		},
+		createDelegate : function(obj, args, appendArgs){ //Delegate ί�л��Ƶ�ʵ��
+			var method = this;
+			return function() {
+				var callArgs = args || arguments;
+				if (appendArgs === true){
+					callArgs = Array.prototype.slice.call(arguments, 0);
+					callArgs = callArgs.concat(args);
+				}else if (Ext.isNumber(appendArgs)){
+					callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
+					var applyArgs = [appendArgs, 0].concat(args); // create method call params
+					Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
+				}
+				return method.apply(obj || window, callArgs);
+			};
 		}
 		
 	});
@@ -63,7 +78,7 @@
 		return name==='xuhao'	
 	});
 	
-	//interSayHi('xuhao')
+	interSayHi('xuhao')
 	
 	function toArray(Delegate){
 		return Ext.toArray(Delegate,1,3)
@@ -73,6 +88,26 @@
 	var string='我的名字叫{0}；我的爱好是{1}';
 	
 	console.log(String.format(string,'xuhao','看美女'));
+	var a=[1,2,3];
+	var b=[2,0,'a','b'];
+	Array.prototype.splice.apply(a,b)
+	console.log(a);
+	console.log(a);
+
+	var arr1 = ['a', 'b', 'c']; 
+	var arr2 = ['1', '2', '3']; 
+
+	// 把arr2 变成一个适合splice的数组（包含splice前2个参数的数组） 
+	arr2.unshift(2, 1); 
+	console.log(arr2);
+	Array.prototype.splice.apply(arr1, arr2); 
+	console.log(arr1); //["a", "b", "1", "2", "3", "c"]
 	
-	
+	function sayName(name) {
+		console.log('hi'+name);
+	}
+	sayName.createDelegate(window,['xuhao','me'],true)('hahah');
+	console.log(sayName.createDelegate(window,['xuhao','me'],0))
+
+
 </script>			  
