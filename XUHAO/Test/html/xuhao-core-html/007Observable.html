@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 100%;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock,#clock1{
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+			background-color: green;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock"></div>
+		<div id="clock1"></div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/Observable.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+	var Event=function(){
+		var clientLists=[];
+		var listen;
+		var trigger;
+		var remvoe;
+
+		listen=function(key,fn){
+			if(!clientLists[key]){
+				clientLists[key]=[];
+			}
+			clientLists[key].push(fn);
+		};
+
+		trigger=function(){
+			var key=Array.prototype.shift.call(arguments);
+			fns=clientLists[key];
+
+			if(!fns||fns.length==0){
+				return false;
+			}
+
+			for(var i=0,fn,len=fns.length;i<len;i++){
+				fn=fns[i];
+				fn.apply(this,arguments);
+			}
+		};
+
+		remove=function(key,fn){
+			var fns=clientLists[key];
+
+			if(!fns){
+				return false;
+			}
+
+			if(!fn){
+				fns&&(fns.length=0);
+			}else{
+
+				for(var i=fns.length,_fn;l>=0;i--){
+					_fn=fns[i];
+
+					if(_fn===fn){
+						fns.splice(i,1);
+					}
+				}
+
+			}
+		}
+
+		return {
+			listen:listen,
+			trigger:trigger,
+			remove:remove
+		}
+	}();
+
+
+	Event.listen('xuhao',function(price){
+		console.log('xuhao-'+price);
+	});
+	//Event.trigger('xuhao',2000);
+
+
+	Employee = Ext.extend(Ext.util.Observable, {
+	    
+	    constructor: function(config){
+	        this.name = config.name;
+	        this.addEvents({
+	            "fired" : true,
+	            "quit" : true
+	        });
+
+	        // Copy configured listeners into *this* object so that the base class's
+	        // constructor will add them.
+	        this.listeners = config.listeners;
+
+	        // Call our superclass constructor to complete construction process.
+	       
+	        Employee.superclass.constructor.call(this, config);
+	    }
+
+	});
+
+	var newEmployee = new Employee({
+	    name: 'employeeName',
+	    listeners: {
+	        quit1: function() {
+	            // By default, "this" will be the object that fired the event.
+	            alert(this.name + " has quit!");
+	        },
+	        quit:mouseleaveAction,
+	      	buffer: 1000,
+	    }
+	});
+	newEmployee.addEvents('nima','dande','shabi');
+	//newEmployee.suspendEvents(true);
+	//newEmployee.resumeEvents();
+	newEmployee.fireEvent('quit');
+
+
+	setTimeout(function(){newEmployee.fireEvent('quit');}, 3000);
+	
+
+
+	function mouseleaveAction(){
+		console.log('mouseleaveAction');
+	}
+
+	Ext.get('clock').on(
+		{
+			'click':{
+				fn: function(){
+					console.log('click');
+				},
+			    scope: this,
+			    delay: 1000,
+			    target:oClocl1
+			},
+			'mouseenter':{
+				fn: function(){
+					console.log('mouseenter');
+				},
+			    scope: this,
+			    single :false,
+			    delay:2000,
+			    //target:Ext.get('clock1')
+			},
+			'mouseleave':{
+				fn: function(){
+					//console.log('mouseleave');
+				},
+			    scope: this
+			}
+
+		}
+	);
+
+	var oClocl1=Ext.get('clock1');
+	oClocl1.addListener('nimabi',function(){console.log('nimabi');});
+	oClocl1.on(
+		{
+			click:function(){
+					console.log('click');
+			},
+			mouseenter:function(){
+					console.log('mouseenter');
+			},
+			mouseleave: function(){
+					console.log('mouseleave');
+			},
+		    scope: this,
+		    single :false,
+		    delay: 100,
+		    // buffer:2000,
+		    //target:Ext.get('clock1')
+		}
+	);
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+

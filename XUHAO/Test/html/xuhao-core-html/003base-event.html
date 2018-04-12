@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		div{
+			position: relative;
+		
+			width: 200px;
+			height: 200px;
+			background-color: red;
+			margin-bottom: 4px;
+		}
+
+		div div{
+			position: relative;
+
+			margin:0 auto;
+			width: 50px;
+			height: 50px;
+			background-color: blue;
+		}
+	
+	</style>
+</head>
+
+<body>
+
+
+	<div id="div0">
+		<div id="divIn"></div>
+	</div>
+	<div id="div1">2dafasdfasdfasdfasdfasdfasdfasdf</div>
+	
+	<div id="div2"></div>
+
+	<form action="" name="form">
+		<input type="text" value="123456" name="1" />
+		<input type="text" value="789" name="2" />
+		<input type="date" value="789" name="3" />
+		<input type="checkbox" value=""  checked name="4" />
+		<input type="radio" value="5-0"   name="5" />
+		<input type="radio" value="5-1"  checked name="5" />
+		<input type="button" value="666666"  checked name="6" />
+		<button name="7">77777</button>
+		<span name='8' value='888'></span>
+	</form>
+
+	<button value="getForm">getForm()</button>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-event.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-ajax.js"></script>
+
+
+
+<script type="text/javascript">
+	var Ext=Ext||XUHAO;
+
+</script>
+
+
+<script type="text/javascript">
+	//用来测试元素的事件信息
+	var oDiv0=Ext.getDom('div0');
+	var oDiv1=Ext.getDom('div1');
+	var oDivIn=Ext.getDom('divIn');
+
+	Ext.lib.Event.on(oDiv0,'mouseenter',function(e){
+		Ext.lib.Event.getRelatedTarget(e||event);
+		//console.log('徐浩+oDiv0--mouseenter');
+	},false);
+
+	Ext.lib.Event.on(oDiv0,'mouseover',function(e){
+		Ext.lib.Event.getRelatedTarget(e||event);
+		//console.log('徐浩+oDiv0--mouseover');
+	},false);
+
+	Ext.lib.Event.on(oDivIn,'mouseenter',function(e){
+		Ext.lib.Event.getRelatedTarget(e||event);
+		//console.log('徐浩+oDivIn--mouseenter');
+	},false);
+
+    function elContains(parent, child) {
+       if(parent && parent.firstChild){
+         while(child) {
+            if(child === parent) {
+                return true;
+            }
+            child = child.parentNode;
+            if(child && (child.nodeType != 1)) {
+                child = null;
+            }
+          }
+        }
+        return false;
+    }
+
+    //测试获取事件
+    
+    Ext.lib.Event.on(oDiv1,'mouseover',function(e){
+
+
+    	// for(var key in e){
+    	// 	console.log(key+" : "+e[key]);
+    	// }
+    	
+
+    });
+
+    Ext.lib.Event.on(oDiv1,'mouseenter',function(e){
+
+    	//Ext.lib.Event.getPageX(e||event);
+    	//console.log(e);
+    	//console.log(Ext.lib.Event.getPageY(e||event));
+    	
+    
+    	
+    	console.log(Ext.lib.Event.getRelatedTarget(e));
+
+    });
+
+
+
+
+
+    function testOnAvailable(){
+	    	var doc=document;
+	    	var oDiv2=doc.getElementById('div2');
+	    	var id='xuhao';
+	    	var html='<span id="'+id+'"></span>';
+
+	    	var exampleHtml=
+	    	'<div id="div3">'+
+				'<script type="text/javascript" src="../../js/xuhao-core-js/OOA.js"><'+'/script>'+
+			'</div>';
+			
+			
+	    	Ext.lib.Event.onAvailable('div3',function(){
+		    	
+		    	
+	    		console.log(123);
+
+
+		    });
+
+		  
+		    var args=arguments;
+		    console.log(args.callee.activeXString);
+	    	
+	    }
+
+		//testOnAvailable();
+
+	
+	//setTimeout(,5000);
+
+	Ext.encode=function(){}
+
+	Ext.lib.Ajax.request('get','https://www.baidu.com',function(){},'123',{jsonData:{a:1}});
+	Ext.lib.Ajax.request('get','https://www.baidu.com',function(){},'123',{jsonData:{a:1}});
+	Ext.lib.Ajax.request('get','https://www.baidu.com',function(){},'123',{jsonData:{a:1}});
+	Ext.lib.Ajax.request('get','https://www.baidu.com',function(){},'123',{jsonData:{a:1}});
+
+
+	
+	Ext.lib.Event.on(document.getElementsByTagName('button')[1],'click',function(e){
+
+		console.log(Ext.lib.Ajax.serializeForm('form'));
+
+	});
+	
+
+
+</script>
+
+

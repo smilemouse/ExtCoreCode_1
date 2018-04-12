@@ -48,7 +48,7 @@ Ext.apply = function(o, c, defaults){
 };
 
 (function(){
-    var idSeed = 0, //id������
+    var idSeed = 0, //id计数器
         toString = Object.prototype.toString,
         ua = navigator.userAgent.toLowerCase(),
         check = function(r){
@@ -371,7 +371,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Boolean} overwrite (optional) Items of the same name will overwrite previous values instead of creating an an array (Defaults to false).
          * @return {Object} A literal with members
          */
-        urlDecode : function(string, overwrite){//overwrite防止参数重名 true表示后面的覆盖前面，false 表示以数组的方式存储
+        urlDecode : function(string, overwrite){//overwrite具有多个相同的参数 true表示覆盖 只保留第一个 false会以数组的形式保存
             if(Ext.isEmpty(string)){
                 return {};
             }
@@ -411,9 +411,9 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Iterable} the iterable object to be turned into a true Array.
          * @return (Array) array
          */
-         toArray : function(){
+         toArray : function(){//是将字符串割裂为数组
              return isIE ?
-                 function(a, i, j, res){ //IE6-8 不能转换dom伪类数组，会报伪数组不是js对象。同时第二个参数不能是null/undefined 现代浏览器会转换为0开始到最后
+                 function(a, i, j, res){
                      res = [];
                      for(var x = 0, len = a.length; x < len; x++) {
                          res.push(a[x]);
@@ -426,7 +426,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          }(),
 
         isIterable : function(v){
-            //check for array or arguments   callee��arguments ���е�����
+            //check for array or arguments   callee是arguments 特有的属性
             if(Ext.isArray(v) || v.callee){
                 return true;
             }
@@ -467,7 +467,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
                 return;
             }
             if(!Ext.isIterable(array) || Ext.isPrimitive(array)){//isPrimitive  string  number bealoon
-                array = [array];//将基础类型的数据放到数组中
+                array = [array];
             }
             for(var i = 0, len = array.length; i < len; i++){
                 if(fn.call(scope || array[i], array[i], i, array) === false){
@@ -548,7 +548,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
                     var e = DOC.getElementById(el);
                     // IE returns elements with the 'name' and 'id' attribute.
                     // we do a strict check to return the element with only the id attribute
-                    if (e && isIE && strict) { //��IE7����name��id��һ���� ����Ҫͨ��attribute ����id��ֵ�Ƿ�һ��
+                    if (e && isIE && strict) { //在IE7下面name和id是一样的 所以要通过attribute 来找id的值是否一样
                         if (el == e.getAttribute('id')) {
                             return e;
                         } else {
@@ -627,7 +627,7 @@ Ext.urlDecode("foo=1&bar=2&bar=3&bar=4", false); // returns {foo: "1", bar: ["2"
          * @param {Boolean} allowBlank (optional) true to allow empty strings (defaults to false)
          * @return {Boolean}
          */
-        isEmpty : function(v, allowBlank){  //allowBlank ����Ƚ϶���Ϊ���ַ���
+        isEmpty : function(v, allowBlank){  //allowBlank 允许比较对象为空字符串
             return v === null || v === undefined || ((Ext.isArray(v) && !v.length)) || (!allowBlank ? v === '' : false);
         },
 
@@ -843,7 +843,7 @@ Company.data.CustomStore = function(config) { ... }
 
 Ext.ns('Ext.util', 'Ext.lib', 'Ext.data', 'Ext.supports');
 
-Ext.elCache = {};
+Ext.elCache = {};//页面所有元素缓存
 
 /**
  * @class Function
@@ -875,7 +875,7 @@ Ext.apply(Function.prototype, {
      * <b>If omitted, defaults to the scope in which the original function is called or the browser window.</b>
      * @return {Function} The new function
      */
-    createInterceptor : function(fcn, scope){  //Interceptor ���� ����
+    createInterceptor : function(fcn, scope){  //Interceptor 拦截 机制
         var method = this;
         return !Ext.isFunction(fcn) ?
                 this :
@@ -954,16 +954,16 @@ btn.on('click', sayHi.createDelegate(btn, ['Fred']));
      * if a number the args are inserted at the specified position
      * @return {Function} The new function
      */
-    createDelegate : function(obj, args, appendArgs){ //Delegate
+    createDelegate : function(obj, args, appendArgs){ //Delegate 委托机制的实现
         var method = this;
         return function() {
             var callArgs = args || arguments;
-            if (appendArgs === true){//将新增的参数添加到第一个参数位置
+            if (appendArgs === true){
                 callArgs = Array.prototype.slice.call(arguments, 0);
                 callArgs = callArgs.concat(args);
             }else if (Ext.isNumber(appendArgs)){
                 callArgs = Array.prototype.slice.call(arguments, 0); // copy arguments first
-                var applyArgs = [appendArgs, 0].concat(args); // create method call params 插入的位置
+                var applyArgs = [appendArgs, 0].concat(args); // create method call params
                 Array.prototype.splice.apply(callArgs, applyArgs); // splice them in
             }
             return method.apply(obj || window, callArgs);

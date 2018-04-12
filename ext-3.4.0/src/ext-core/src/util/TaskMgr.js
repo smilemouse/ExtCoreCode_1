@@ -55,7 +55,7 @@ Ext.util.TaskRunner = function(interval){
     	startThread = function(){
 	        if(!running){
 	            running = true;
-	            id = setInterval(runTasks, interval);
+	            id = setInterval(runTasks, interval);//这个是10ms执行一次
 	        }
 	    },
 
@@ -71,7 +71,7 @@ Ext.util.TaskRunner = function(interval){
     	runTasks = function(){
 	    	var rqLen = removeQueue.length,
 	    		now = new Date().getTime();	    			    		
-	    
+
 	        if(rqLen > 0){
 	            for(var i = 0; i < rqLen; i++){
 	                tasks.remove(removeQueue[i]);

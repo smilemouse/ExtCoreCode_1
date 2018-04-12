@@ -1,0 +1,55 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DomQuery</title>
+	<link rel="stylesheet" href="../../ext-3.4.0/resources/css/ext-all.css">
+	<script typet="text/javascript" src="../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+	<!-- <script typet="text/javascript" src="../../ext-3.4.0/ext-all.js"></script> -->
+	<script typet="text/javascript" src="../../ext-3.4.0/ext-all-debug.js"></script>
+
+	<script type="text/javascript" src="../../ext-3.4.0/src/ext-core/src/core/DomQuery.js"></script>
+
+
+
+</head>
+<body>
+	<div id="getStyle" style="width:20px;height:20px;">
+		<div class="class1" id='class1'><span>12312</span></div>
+	</div>
+
+	<div id="getStyle2" style="width:20px;height:20px;">
+		<div class="class1 class2"></div>
+	</div>
+</body>
+</html>
+<script>
+	Ext.iterate(Ext.DomQuery,function(key,value){
+		//console.log(key);
+	});
+	
+	//Ext.log(Ext.DomQuery.operators['='](12,1))
+	//
+	//
+	//console.log(Ext.DomQuery.getStyle('getStyle','width'));
+
+	//console.log(Ext.query('#getStyle',document.getElementsByTagName('body')[0],'simple'));
+
+
+	//console.log(Ext.query('#getStyle2>.class1,#getStyle2>.class2',document.getElementsByTagName('body')[0],'simple'));
+
+	 //alert(''.match(/^(\s?[\/>+~]\s?|\s|$)/))
+
+	//console.log(Ext.DomQuery.jsSelect('>div',document.getElementsByTagName('body')[0],'simple'))
+	//
+	//
+	//console.log(Ext.query('/#getStyle/.class0'));
+	//console.log(Ext.query('/#getStyle/div')); //+ ~ / >
+
+	//console.log(Ext.DomQuery.selectNode('.class1')); 
+	//console.log(Ext.DomQuery.selectValue('.class1','')); 
+	//console.log(Ext.DomQuery.selectNumber('.class1','')); 
+	//console.log(Ext.DomQuery.filter(Ext.query('div'),'#getStyle2>.class1',false)); 
+	//console.log(Ext.query('/#getStyle/.class1'));
+	console.log(Ext.query('.class1:not(2n)'));
+</script>

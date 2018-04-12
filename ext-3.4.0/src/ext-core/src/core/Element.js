@@ -76,7 +76,7 @@ if(opt.anim.isAnimated()){
 (function(){
 var DOC = document;
 
-Ext.Element = function(element, forceNew){  //Ö÷ÒªÊÇÍ¨¹ýIDÀ´»ñÈ¡ÔªËØµÄ
+Ext.Element = function(element, forceNew){ //forceNew 
     var dom = typeof element == "string" ?
               DOC.getElementById(element) : element,
         id;
@@ -948,7 +948,7 @@ function garbageCollect(){
         }
     }
 }
-El.collectorThreadId = setInterval(garbageCollect, 30000);//À¬»ø¶¨Ê±ÇåÀí»úÖÆ
+El.collectorThreadId = setInterval(garbageCollect, 30000);//Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½ÃŠÂ±Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½Ã¯Â¿Â½
 
 var flyFn = function(){};
 flyFn.prototype = El.prototype;

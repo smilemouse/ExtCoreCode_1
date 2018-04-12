@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DomQuery学习</title>
+</head>
+<body>
+    
+    <ul id='TL_next_prev'>
+        <li id="child1" class="child">node 1</li>
+        <li id="child2" class="child">node 2</li>
+
+        <li id="child3" class="child">node 3</li>
+        <li id="child4">node 4</li>
+        <li id="child5">node 5</li>
+        <li id="child6">node 6</li>
+        <li id="child7">node 7</li>
+        <li id="child8">node 8</li>
+    </ul>
+    <div class="div1"></div>
+    <div class="div2"></div>
+    <div class="div3"></div>
+    <a href="#" class="a1"></a>
+    <a href="#" class="a2"></a>
+    <a href="#" class="a3"></a>
+    
+
+<div id="test"> 
+    <a href="#"> test </a> 
+</div> 
+<div id="result"></div> 
+
+<script type="text/javascript"> 
+(function(){ 
+    var test = document.getElementById('test'); 
+    alert(test.innerHTML); 
+
+    var result = document.getElementById('result'); 
+    result.innerHTML = test.innerHTML; 
+    alert(result.innerHTML) 
+})(); 
+</script>
+
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+    var oUl=document.getElementById('TL_next_prev');
+    var oLi4=document.getElementById('child4');
+    var oLi8=document.getElementById('child8');
+    var oLis=document.getElementsByTagName('li');
+
+
+    function next(n){	
+        while((n = n.nextSibling) && n.nodeType != 1);
+        return n;
+    }
+
+    function next1(n) {
+        console.log(n.nextSibling);
+        console.log((n=n.nextSibling)&&n.nodeType!=1);
+        while ((n=n.nextSibling)&&n.nodeType!=1) {
+            console.log('haha');
+        }
+        return n;
+    }
+
+    function children(parent) {
+        var n = parent.firstChild,
+            nodeIndex = -1,
+            nextNode;
+
+        while (n) {
+            nextNode = n.nextSibling;
+            if (n.nodeType == 3 && !(/\S/.test(n.nodeValue))) {
+                parent.removeChild(n);
+            } else {
+                n.nodeIndex = ++nodeIndex;
+            }
+            n = nextNode;
+        }
+        return this;
+    }
+
+    function byClassName(nodeSet, cls){
+        if(!cls){
+            return nodeSet;
+        }
+        var result = [], ri = -1;
+        for(var i = 0, ci; ci = nodeSet[i]; i++){
+            if((' '+ci.className+' ').indexOf(cls) != -1){
+                result[++ri] = ci;
+            }
+        }
+        return result;
+    };
+
+
+    console.log(next(oLi8));
+    console.log(next1(oLi8));
+    console.log(byClassName(oLis,'child'));
+
+
+    function getNodes(ns, mode, tagName){
+        var result = [], ri = -1, cs;
+        if(!ns){
+            return result;
+        }
+        tagName = tagName || "*";
+    // convert to array
+        if(typeof ns.getElementsByTagName != "undefined"){
+            ns = [ns];
+        }
+    
+    // no mode specified, grab all elements by tagName
+    // at any depth
+        if(!mode){
+            for(var i = 0, ni; ni = ns[i]; i++){
+                cs = ni.getElementsByTagName(tagName);
+                for(var j = 0, ci; ci = cs[j]; j++){
+                    result[++ri] = ci;
+                }
+            }
+    // Direct Child mode (/ or >)
+    // E > F or E/F all direct children elements of E that have the tag     
+        } else if(mode == "/" || mode == ">"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, ni, cn; ni = ns[i]; i++){
+                cn = ni.childNodes;
+                for(var j = 0, cj; cj = cn[j]; j++){
+                    if(cj.nodeName == utag || cj.nodeName == tagName  || tagName == '*'){
+                        result[++ri] = cj;
+                    }
+                }
+            }
+    // Immediately Preceding mode (+)
+    // E + F all elements with the tag F that are immediately preceded by an element with the tag E
+        }else if(mode == "+"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling) && n.nodeType != 1);
+                if(n && (n.nodeName == utag || n.nodeName == tagName || tagName == '*')){
+                    result[++ri] = n;
+                }
+            }
+    // Sibling mode (~)
+    // E ~ F all elements with the tag F that are preceded by a sibling element with the tag E
+        }else if(mode == "~"){
+            var utag = tagName.toUpperCase();
+            for(var i = 0, n; n = ns[i]; i++){
+                while((n = n.nextSibling)){
+                    if (n.nodeName == utag || n.nodeName == tagName || tagName == '*'){
+                        result[++ri] = n;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+
+
+    //测试getNodes方法
+    console.log('测试getNodes方法');
+    //console.log(getNodes(oUl, '/', 'li'));
+    console.log(getNodes(oUl, '~', 'div'));
+    //console.log(getNodes(oUl, '~', 'a'));
+
+    function byTag(cs, tagName){
+        if(cs.tagName || cs == document){
+            cs = [cs];
+        }
+        if(!tagName){
+            return cs;
+        }
+        var result = [], ri = -1;
+        tagName = tagName.toLowerCase();
+        for(var i = 0, ci; ci = cs[i]; i++){
+            if(ci.nodeType == 1 && ci.tagName.toLowerCase() == tagName){
+                result[++ri] = ci;
+            }
+        }
+        return result;
+    }
+
+    console.log(byTag(oLis,'li'));
+
+
+
+</script>

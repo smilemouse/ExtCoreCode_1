@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script>
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		div{
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='clock'></div>
+
+	
+</body>
+</html>
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/TaskMgr.js"></script>
+<script type="text/javascript" src="../../../Libs/xuhao-util/TaskMgr.js"></script>
+<script type="text/javascript">
+	var task = {
+
+	    run: function(){
+	        
+	        console.log(new Date());
+	      	
+	    },
+	    interval : 10000, //1 second
+	    duration :4900,
+	    repeat:2
+	}
+	var task1 = {
+
+	    run: function(runCount){
+	        console.log(runCount);
+	        //console.log('task1='+new Date());
+	      	
+	      	if(runCount>10){
+	      		return false;
+	      	}
+	    },
+	    onStop:function(){
+	    	console.log('task1 onStop');
+	    },
+	    interval : 1000, //1 second
+	}
+
+	//Ext.TaskMgr.start(task);
+	var task=XUHAO.TaskMgr.start(task1);
+	
+
+</script>
+
+
+

@@ -146,12 +146,12 @@ Ext.DomHelper = function(){
         afterend = 'afterend',
         beforebegin = 'beforebegin',
         beforeend = 'beforeend',
-        ts = '<table>',
-        te = '</table>',
-        tbs = ts+'<tbody>',
-        tbe = '</tbody>'+te,
-        trs = tbs + '<tr>',
-        tre = '</tr>'+tbe;
+        ts = '<table>', //tableStart
+        te = '</table>',//tableEnd
+        tbs = ts+'<tbody>',//tbodyStart  <table><tbdoy>
+        tbe = '</tbody>'+te,//</tbody></table>
+        trs = tbs + '<tr>',//<table><tbdoy><tr>
+        tre = '</tr>'+tbe;//</tr></tbody></table>
 
     // private
     function doInsert(el, o, returnElement, pos, sibling, append){
@@ -232,7 +232,7 @@ Ext.DomHelper = function(){
      * @ignore
      * Nasty code for IE's broken table implementation
      */
-    function insertIntoTable(tag, where, el, html) {
+function insertIntoTable(tag, where, el, html) {
         var node,
             before;
 

@@ -1,0 +1,82 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Element</title>
+	<link rel="stylesheet" href="../../../ext-3.4.0/resources/css/ext-all.css">
+	<script typet="text/javascript" src="../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+	<script type="text/javascript" src="../../../ext-3.4.0/src/ext-core/src/core/Element.js"></script>
+
+	<!-- <script typet="text/javascript" src="../../../ext-3.4.0/ext-all.js"></script> -->
+
+	
+
+</head>
+<body>
+	<div id='div0' style="width:10px;height:10px;background:blue;"></div>
+	<input type="text" class="test1">
+	<table border="1" id='table0'>
+		<th>
+			<td>adf</td>
+		</th>
+		<th>
+			<td>adf</td>
+		</th>
+		<th>
+			<td>adf</td>
+		</th>
+		<th>
+			<td>adf</td>
+		</th>
+	</table>
+</body>
+</html>
+
+<script type="text/javascript">
+		function testHasOwnPoperty(){
+
+			this.name='hasOwnProperty';
+
+		}
+
+		testHasOwnPoperty.prototype.proName='proName';
+		testHasOwnPoperty.prototype.deferFn=function(){
+
+			//console.log('defer');
+
+		}
+
+		var test=new testHasOwnPoperty();
+
+		//console.log(test.hasOwnProperty('name'));
+
+		//var oInput=document.getElementsByClassName('test1')[0];
+
+		//console.log(oInput.focus());
+
+		test.deferFn.defer(1000,null,[]);
+
+
+		function testAttribute(){
+
+            var test=document.createElement('table'),
+                isBrokenOnTable=false,
+                hasGetAttribute='getAttribute' in test,
+                unknownRe=/undefined|unknown/;
+
+             alert('hasGetAttribute --- '+hasGetAttribute);
+
+		}
+		//testAttribute();
+
+		var oDiv0=Ext.get('div0');
+
+		//oDiv0.getAttribute('style');
+
+		var oTable0=Ext.get('div0');
+
+		console.log(oTable0.getAttribute('style','xuhao'));	
+
+		console.log(Ext.get(document))
+
+</script>

@@ -10,7 +10,7 @@
  * @singleton
  */
 Ext.util.CSS = function(){
-	var rules = null;
+    var rules = null;
    	var doc = document;
 
     var camelRe = /(-[a-z])/gi;

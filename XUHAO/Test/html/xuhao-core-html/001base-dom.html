@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本dom操作函数</title>
+	<script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script>
+	<script type="text/javascript" src="../../../Libs/xuhao-adapter/xuhao-base-dom.js"></script>
+	<style type="text/css">
+		*{
+			padding:0 0;
+			margin: 0 0;
+		}
+		body{
+			border: 4px solid red;
+		}
+		div{
+			position: relative;
+			margin: 0 auto;
+			width: 200px;
+			height: 200px;
+			overflow: scroll;
+			border: 4px solid blue;
+		}
+	
+	</style>
+</head>
+<body>
+	<div id='div0'></div>
+</body>
+</html>
+
+<script type="text/javascript">
+	var DOC=document;
+	var oDiv=DOC.getElementById('div0');
+	console.log(DOC.documentElement.scrollWidth);
+	console.log(XUHAO.lib.Dom.getViewportWidth());
+	console.log(XUHAO.lib.Dom.getDocumentWidth());
+
+
+</script>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../../ext-3.4.0/resources/css/ext-all.css">
+	<script typet="text/javascript" src="../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+	<!-- <script typet="text/javascript" src="../../ext-3.4.0/ext-all.js"></script> -->
+	<script typet="text/javascript" src="../../../ext-3.4.0/ext-all-debug.js"></script>
+	<script type="text/javascript" src="../../../ext-3.4.0/src/ext-core/src/core/DomHelper.js"></script>
+
+</head>
+<body>
+	<div id="div0">xuhao0</div>
+	<div id="div1">xuhao1</div>
+	<div id="div2">xuhao2</div>
+	
+	<table border=true id='table1'>
+	  <thead>
+	    <tr>
+	      <th>Month</th>
+	      <th>Savings</th>
+	    </tr>
+	  </thead>
+	  <tfoot>
+	    <tr>
+	      <td>Sum</td>
+	      <td>$180</td>
+    	</tr>
+ 	 </tfoot>
+		<tbody>
+			<tr>
+				<td>123</td>
+			</tr>
+		</tbody>
+	</table>
+
+
+</body>
+</html>
+<script type="text/javascript">
+	console.log(Ext.DomHelper.markup(
+		{
+			tag:'a',
+			html:'<h1>123</h1>',
+			htmlFor:'if',
+			cn:'<h1>456</h1>',
+			children:'<h1>789</h1>',
+			attr:{
+				style:'123',
+				msg:'123'
+			}
+		}
+	));
+
+	Ext.DomHelper.insertHtml('beforeBegin',document.getElementById('table1'),'<h1>哈1</h1>');
+	Ext.DomHelper.insertHtml('afterBegin',document.getElementById('table1'),'<h1>哈2</h1>');
+	Ext.DomHelper.insertHtml('beforeEnd',document.getElementById('table1'),'<h1>哈3</h1>');
+	Ext.DomHelper.insertHtml('afterEnd',document.getElementById('table1'),'<h1>哈4</h1>');
+
+	console.log(navigator.userAgent);
+	console.log(Ext.getBody().dom.insertAdjacentHTML);
+	console.log(Ext.DomHelper.markup(document.getElementById('div0')));
+
+
+
+</script>

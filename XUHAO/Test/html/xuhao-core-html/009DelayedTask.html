@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DelayedTask</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 100%;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock,#clock1{
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+			background-color: green;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock"></div>
+		<div id="clock1"></div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/DelayedTask.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+    
+    var DelayedTask=function(fn,scope,args){
+        var _this=this,
+            id=null,
+            call=function(){
+                clearInterval(id);
+                id=null;
+                fn.apply(scope,args||[]);
+            }
+
+        _this.delay=function(delay,newFn,newScope,newArgs){
+            _this.cancel();
+            fn=newFn||fn;
+            scope=newScope||scope;
+            args=newArgs||args;
+            id=setInterval(call, delay);
+        };
+
+        _this.cancel=function(){
+            if(id){
+                clearInterval(id);
+                id=null;
+            }
+        }
+    };
+
+
+    function delayFn(args){
+        console.log('delay');
+        console.log(this);
+        console.log(args);
+    }
+     var delay=new DelayedTask();
+
+    function testDelay(ab){
+       
+
+        delay.delay(1000,delayFn,{name:'xuhao'},[ab]);
+
+    }
+
+    testDelay();
+    testDelay();
+    testDelay();
+    testDelay();
+    testDelay();
+    testDelay();
+    testDelay();
+    testDelay(123);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+

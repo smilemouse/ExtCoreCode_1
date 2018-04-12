@@ -1,0 +1,18 @@
+#node学习笔记
+//无须兼容的node属性方法 但是要注意nodeType的属性
+    firstChild,nextSibling previousSibling
+
+
+1.nodeType参数值代表的意思
+    1	Element	一个元素	Element, Text, Comment, ProcessingInstruction, CDATASection, Entity参考手册
+    2	Attr	一个属性	Text, Entity参考手册
+    3	Text	一个元素的文本内容 或属性	None
+    4	CDATASection	一个文档的CDATA部分（文本将 不会被解析器解析）	None
+    5	Entity参考手册	实体引用	Element, ProcessingInstruction, Comment, Text, CDATASection, Entity参考手册
+    6	Entity	一个实体	Element, ProcessingInstruction, Comment, Text, CDATASection, Entity参考手册
+    7	ProcessingInstruction	一个处理指令	None
+    8	Comment	一个注释	None
+    9	Document	整个文档（DOM树的根节点）	Element, ProcessingInstruction, Comment, DocumentType
+    10	DocumentType	为文档实体提供接口	None
+    11	DocumentFragment	表示邻接节点和它们的子树。	Element, ProcessingInstruction, Comment, Text, CDATASection, Entity参考手册
+    12	Notation	代表一个符号在DTD中的声明	None

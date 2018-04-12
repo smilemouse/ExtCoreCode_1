@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * Ext JS Library 3.4.0
  * Copyright(c) 2006-2011 Sencha Inc.
  * licensing@sencha.com
@@ -89,7 +89,7 @@ Ext.DomQuery = function(){
     
     // this eval is stop the compressor from
     // renaming the variable to something shorter
-    eval("var batch = 30803;");    	//��ֹѹ����������ָı�
+    eval("var batch = 30803;");    	////一个标识，表示节点是否已经进行过nodeIndex索引//这样的写法，是防止压缩代码名称被压掉
 
     // Retrieve the child node from a particular
     // parent at the specified index.
@@ -285,7 +285,7 @@ Ext.DomQuery = function(){
         var result = [], 
             ri = -1, 
             useGetStyle = custom == "{",	    
-            fn = Ext.DomQuery.operators[op],	    
+            fn = Ext.DomQuery.operators[op],	//操作函数    
             a,
             xml,
             hasXml;
@@ -310,7 +310,7 @@ Ext.DomQuery = function(){
                 } else if (attr == "for"){
                     a = ci.htmlFor;
                 } else if (attr == "href"){
-		    // getAttribute href bug
+		    // getAttribute href bug  IE 6,7下回出错
 		    // http://www.glennjones.net/Post/809/getAttributehrefbug.htm
                     a = ci.getAttribute("href", 2);
                 } else{
@@ -439,32 +439,36 @@ Ext.DomQuery = function(){
          * @param {String} type (optional) Either "select" (the default) or "simple" for a simple selector match
          * @return {Function}
          */
-        compile : function(path, type){
+        compile : function(path, type){      
             type = type || "select";
 
     	    // setup fn preamble
             var fn = ["var f = function(root){\n var mode; ++batch; var n = root || document;\n"],
-        		mode,		
+        		mode,		//选择器符号
         		lastPath,
             	matchers = Ext.DomQuery.matchers,
             	matchersLn = matchers.length,
             	modeMatch,
             	// accept leading mode switch
-            	lmode = path.match(modeRe);
+            	lmode = path.match(modeRe); // modeRe=/^(\s?[\/>+~]\s?|\s|$)/, 匹配四中选择器开头的情况console.log(">.class")
             
+
             if(lmode && lmode[1]){
                 fn[fn.length] = 'mode="'+lmode[1].replace(trimRe, "")+'";';
                 path = path.replace(lmode[1], "");
             }
-	    
-            // strip leading slashes
+	        
+            // strip leading slashes    /#id/class0/class1/class2
             while(path.substr(0, 1)=="/"){
                 path = path.substr(1);
             }
 
             while(path && lastPath != path){
                 lastPath = path;
-                var tokenMatch = path.match(tagTokenRe);
+                var tokenMatch = path.match(tagTokenRe);//tagTokenRe=/^(#)?([\w\-\*]+)/,判断是标签 # 或者通配符选择器
+                
+              
+
                 if(type == "select"){
                     if(tokenMatch){
 			// ID Selector
@@ -488,15 +492,16 @@ Ext.DomQuery = function(){
                         path = path.replace(tokenMatch[0], "");
                     }
                 }
+                
                 while(!(modeMatch = path.match(modeRe))){
                     var matched = false;
                     for(var j = 0; j < matchersLn; j++){
                         var t = matchers[j];
                         var m = path.match(t.re);
+                        console.log(m);
                         if(m){
-                            fn[fn.length] = t.select.replace(tplRe, function(x, i){
-				return m[i];
-			    });
+                            fn[fn.length] = t.select.replace(tplRe, function(x, i){return m[i];});
+                            console.log(fn[fn.length-1]);
                             path = path.replace(m[0], "");
                             matched = true;
                             break;
@@ -528,55 +533,60 @@ Ext.DomQuery = function(){
          * no matches, and empty Array is returned.
          */
 		jsSelect: function(path, root, type){
+
 			// set root to doc if not specified.
 			root = root || document;
 			
-				if(typeof root == "string"){
-					root = document.getElementById(root);
-				}
-				var paths = path.split(","),
-					results = [];
-			
-			// loop over each selector
-				for(var i = 0, len = paths.length; i < len; i++){		
-					var subPath = paths[i].replace(trimRe, "");
-			// compile and place in cache
+			if(typeof root == "string"){
+				root = document.getElementById(root);
+			}
+			var paths = path.split(","),
+				results = [];
+		
+		// loop over each selector
+			for(var i = 0, len = paths.length; i < len; i++){		
+				var subPath = paths[i].replace(trimRe, "");
+		// compile and place in cache
+				if(!cache[subPath]){
+					cache[subPath] = Ext.DomQuery.compile(subPath);
 					if(!cache[subPath]){
-						cache[subPath] = Ext.DomQuery.compile(subPath);
-						if(!cache[subPath]){
-							throw subPath + " is not a valid selector";
-						}
-					}
-					var result = cache[subPath](root);
-					if(result && result != document){
-						results = results.concat(result);
+						throw subPath + " is not a valid selector";
 					}
 				}
-			
-			// if there were multiple selectors, make sure dups
-			// are eliminated
-				if(paths.length > 1){
-					return nodup(results);
+				var result = cache[subPath](root);
+				if(result && result != document){
+					results = results.concat(result);
 				}
-				return results;
-			},
+			}
+		
+		// if there were multiple selectors, make sure dups
+		// are eliminated
+			if(paths.length > 1){
+				return nodup(results);
+			}
+			return results;
+		},
 		isXml: function(el) {
 			var docEl = (el ? el.ownerDocument || el : 0).documentElement;
 			return docEl ? docEl.nodeName !== "HTML" : false;
 		},
-		select : document.querySelectorAll ? function(path, root, type) {
-			root = root || document;
-			if (!Ext.DomQuery.isXml(root)) {
-			try {
-				var cs = root.querySelectorAll(path);
-				return Ext.toArray(cs);
-			}
-			catch (ex) {}		
-			}	    
-			return Ext.DomQuery.jsSelect.call(this, path, root, type);
-		} : function(path, root, type) {
-			return Ext.DomQuery.jsSelect.call(this, path, root, type);
-		},
+        
+		select : !document.querySelectorAll ? 
+            function(path, root, type) {
+    			root = root || document;
+    			if (!Ext.DomQuery.isXml(root)) {
+    			try {
+    				var cs = root.querySelectorAll(path);
+    				return Ext.toArray(cs);
+    			}
+    			catch (ex) {}		
+    			}	    
+    			return Ext.DomQuery.jsSelect.call(this, path, root, type);
+    		}
+            : 
+            function(path, root, type) {
+    			return Ext.DomQuery.jsSelect.call(this, path, root, type);
+    		},
 
         /**
          * Selects a single element.
@@ -608,7 +618,7 @@ Ext.DomQuery = function(){
 	    // http://reference.sitepoint.com/javascript/Node/normalize
 	    // https://developer.mozilla.org/En/DOM/Node.normalize	    
             if (typeof n.normalize == 'function') n.normalize();
-            
+            console.log(n.firstChild.nodeValue);
             v = (n && n.firstChild ? n.firstChild.nodeValue : null);
             return ((v === null||v === undefined||v==='') ? defaultValue : v);
         },
@@ -654,7 +664,21 @@ Ext.DomQuery = function(){
             if(!simpleCache[ss]){
                 simpleCache[ss] = Ext.DomQuery.compile(ss, "simple");
             }
-            var result = simpleCache[ss](els);
+            //var result = simpleCache[ss](els);
+            //
+            //
+            
+
+            var r= function (root){
+                var mode; ++batch;
+                var n = root || document;
+                n = byId(n, "getStyle2");
+                mode=">";
+                n = byClassName(n, " class1 ");
+                return nodup(n);
+            }
+            result=r(els);
+
             return nonMatches ? quickDiff(result, els) : result;
         },
 
@@ -685,7 +709,7 @@ Ext.DomQuery = function(){
          * Collection of operator comparison functions. The default operators are =, !=, ^=, $=, *=, %=, |= and ~=.
          * New operators can be added as long as the match the format <i>c</i>= where <i>c</i> is any character other than space, &gt; &lt;.
          */
-        operators : { //�ַ����� ѡ���������� ������������
+        operators : {
             "=" : function(a, v){     
                 return a == v;
             },
@@ -704,10 +728,10 @@ Ext.DomQuery = function(){
             "%=" : function(a, v){
                 return (a % v) == 0;
             },
-            "|=" : function(a, v){
+            "|=" : function(a, v){// 以v开头并且-连字符的属性
                 return a && (a == v || a.substr(0, v.length+1) == v+'-');
             },
-            "~=" : function(a, v){
+            "~=" : function(a, v){ // className1 className2 className3  [class ~=className2]
                 return a && (' '+a+' ').indexOf(' '+v+' ') != -1;
             }
         },
@@ -737,7 +761,7 @@ Ext.DomQuery.pseudos.external = function(c, v){
 var externalLinks = Ext.select("a:external");
 </code></pre>
          */
-        pseudos : { //α��ѡ����
+        pseudos : { //伪类的意思
             "first-child" : function(c){
                 var r = [], ri = -1, n;
                 for(var i = 0, ci; ci = n = c[i]; i++){

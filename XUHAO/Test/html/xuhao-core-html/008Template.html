@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 100%;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock,#clock1{
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+			background-color: green;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock"></div>
+		<div id="clock1"></div>
+	</div>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/Template.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+	var tpl = new Ext.Template(//定义模板  
+    '<table  border=1 cellpadding=0 cellspacing = 0>',  
+    '<tr><td width=90>姓名</td><td width=90>{name}</td></tr>',  
+    '<tr><td>年龄</td><td>{age}</td></tr>',  
+    '<tr><td>性别</td><td>{sex}</td></tr>',  
+    '</table>',
+    {
+    	compiled:true
+    }  
+)  
+//模板值和模板进行组合并将新生成的节点插入到id为'tpl-table'的元素中  
+
+tpl.append('clock',{name:'xuhao',age:12,sex:'男'}); 
+console.log(tpl.apply({name:'xuhao2333'}));
+
+function normalEval(){
+	    var me = this,
+	    	
+
+        sep = ",";
+
+    me.html='<table  border=1 cellpadding=0 cellspacing = 0><tr><td width=90>姓名</td><td width=90>xuhao</td></tr><tr><td>年龄</td><td></td></tr><tr><td>性别</td><td></td></tr></table>';
+
+
+    me.html=[
+    	  '<table  border=1 cellpadding=0 cellspacing = 0>',  
+		    '<tr><td width=90>姓名</td><td width=90>{name}</td></tr>',  
+		    '<tr><td>年龄</td><td>{age}</td></tr>',  
+		    '<tr><td>性别</td><td>{sex}</td></tr>',  
+		    '</table>'
+    ].join('');
+
+    console.log(me.html);
+
+    function fn(m, name){
+        name = "values['" + name + "']";
+        return "'"+ sep + '(' + name + " == undefined ? '' : " + name + ')' + sep + "'";
+    }
+
+    eval("this.compiled = function(values){ return " + ("['") +
+         me.html.replace(/\\/g, '\\\\').replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.re, fn) +
+         ("'].join('');};"));
+
+
+    console.log(me.compiled);
+
+
+    console.log(me.html);
+    return me;
+}
+
+function geckoEval(){
+    var me = this,
+    	sep = "+" ;
+
+
+    me.html='<table  border=1 cellpadding=0 cellspacing = 0><tr><td width=90>姓名</td><td width=90>xuhao</td></tr><tr><td>年龄</td><td></td></tr><tr><td>性别</td><td></td></tr></table>';
+
+
+    function fn(m, name){
+        name = "values['" + name + "']";
+        return "'"+ sep + '(' + name + " == undefined ? '' : " + name + ')' + sep + "'";
+    }
+
+    eval("this.compiled = function(values){ return " + ("'") +
+         me.html.replace(/\\/g, '\\\\').replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.re, fn) +
+         ( "';};"));
+
+    console.log(me.compiled);
+   	console.log(me.html);
+    return me;
+}
+
+normalEval();
+geckoEval();
+
+
+
+
+
+
+
+
+
+</script>
+
+
+

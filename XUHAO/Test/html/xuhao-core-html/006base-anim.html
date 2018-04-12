@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 100%;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock{
+			width: 200px;
+			height: 200px;
+			border:1px solid red;
+			background-color: green;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock"></div>
+	</div>
+
+	<div id='toolbar'>
+		
+	</div>
+	
+
+	
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+
+<!-- <script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-anim.js"></script> -->
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/TaskMgr.js"></script> -->
+<script type="text/javascript">
+
+	Ext.lib.Anim.motion('clock', {opacity : {to :1},xy:[800,600]}, 2, 'easeOut', function(a,b,c,d,e,f,g){
+		console.log('end');
+	}, window);
+
+	var clock1=Ext.fly('clock');
+
+	var toolbar=new Ext.Toolbar({
+		renderTo:Ext.get('toolbar'),
+		defaults:{
+
+		},
+		items:[
+			{
+				text:'fadeIn',
+				handler:function(){
+					Ext.fly('clock').fadeIn({
+						endOpacity:1,
+						easing:'easeout',
+						duration:1
+					});
+				}
+			},
+			{
+				text:'slideIn',
+				handler:function(){
+					Ext.fly('clock').slideIn();	
+				}
+
+			},
+			{
+				text:'slideOut',
+				handler:function(){
+					Ext.fly('clock').slideOut();
+				}
+			},
+			{
+				text:'puff',
+				handler:function(){
+					Ext.fly('clock').puff({
+						easing: 'easeOut',
+					    duration: 1,
+					    remove: false,
+					    useDisplay: true
+					});
+				}
+			},
+			{
+				text:'switchOff',
+				handler:function(){
+					Ext.fly('clock').switchOff({
+						easing: 'easeIn',
+					    duration: .3,
+					    remove: true,
+					    useDisplay: false
+
+					});
+				}
+			},
+			{
+				text:'highLight',
+				handler:function(){
+					Ext.fly('clock').highlight();
+				}
+			},
+
+			{
+				text:'frame',
+				handler:function(){
+					Ext.fly('clock').frame("ff0000", 3, { duration: 3 });
+
+				}
+			},
+			{
+				text:'scale',
+				handler:function(){
+					Ext.fly('clock').scale(600, 400,{
+					    easing: 'EaseInOut',
+					    duration: 2
+					});
+
+				}
+			},
+			
+			{
+				text:'shift',
+				handler:function(){
+
+					
+					Ext.fly('clock').shift({
+						width: 100,
+					    height: 100,
+					    x: 600,
+					    y: 100,
+					    opacity:.3,
+					    easing: 'Easeout',
+					    duration: 2
+					});
+
+
+
+				}
+			},
+
+
+
+
+		]
+	});
+
+
+</script>
+
+
+

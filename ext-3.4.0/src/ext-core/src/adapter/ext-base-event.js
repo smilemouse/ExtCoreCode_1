@@ -160,7 +160,7 @@ Ext.lib.Event = function() {
         var coord  = ev['page' + xy];
         if (!coord && coord !== 0) {
             coord = ev['client' + xy] || 0;
-
+            
             if (Ext.isIE) {
                 coord += getScroll()[xy == "X" ? 0 : 1];
             }
@@ -341,7 +341,7 @@ Ext.lib.Event = function() {
                 }
             };
 
-            Ext.EventManager._unload();
+            //Ext.EventManager._unload();
 
             doRemove(win, UNLOAD, EU._unload);
         }

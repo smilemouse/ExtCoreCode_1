@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试原生事件</title>
+	<style type="text/css">
+		*{
+			padding: 0 0;
+			margin: 0 0;
+		}
+
+		div{
+			height: 100px;
+			width: 600px;
+			background-color: #ccc;
+			margin-top: 4px;
+			text-align: center;
+			line-height: 100px;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="div0">div0</div>
+	<div id="div1">div1</div>
+	<div id="div2">div2</div>
+
+</body>
+</html>
+
+<script type="text/javascript">
+	var oDiv0=document.getElementById('div0');
+
+	function addListeners(el,eventName,fn){
+
+		if(window.addEventListener){
+			addEventListener(eventName,fn,false);
+		}else{
+			el.attachEvent('on'+eventName,fn);
+		}
+
+	};
+
+	//firfox中是不存在event对象的
+	
+	addListeners(oDiv0,'click',function(e){
+		console.log(e);	
+		console.log(event);//firfox中是会报错的
+		console.log(e==event);
+
+		// for(var key in e){
+  //   		console.log(key+" : "+e[key]);
+  //   	}
+    	
+	});
+
+
+
+
+</script>
