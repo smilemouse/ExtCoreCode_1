@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DomQuery</title>
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+    <script src="../../../jquery-1.11.2.js"></script>
+	
+</head>
+<body>
+	<div id="parent">
+		<div id="c0">
+			<div id="c00" class=".c00"></div>
+		</div>
+		<div id="c1">c1</div>
+		<div id="c2">c2</div>
+		<div id="c3">c2</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/DomQuery.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+	//console.log(Ext.DomQuery.jsSelect('///#c0/#c00'));
+	console.log(Ext.DomQuery.jsSelect('div#parent:first-child'));
+
+	var doc=document;
+
+	var oDiv=document.getElementById('c0');
+
+	var owerDoc=oDiv.ownerDocument;
+	//console.log(owerDoc);
+	//console.log(owerDoc==doc);
+	nthRe = /(\d*)n\+?(\d*)/; 
+	nthRe2 = /\D/;
+	a='2n'
+
+	console.log(a == "even" && "2n");
+	console.log(!nthRe2.test(a) && "n+" + a || a);
+	m = nthRe.exec(!nthRe2.test(a) && "n+" + a || a),
+
+	console.log(m);
+	f = (m[1] || 1) - 0, l = m[2] - 0;
+	console.log(f);
+
+	//console.log(Ext.DomQuery.jsSelect('#parent>div:nth-child(2)'));
+
+
+	//console.log(Ext.DomQuery.jsSelect('#parent>div:nth-child(n+1)'));
+	console.log(Ext.DomQuery.jsSelect('#parent>div:nth-child1(n+2)'));
+	console.log($('#parent>div:nth-child(n+2)'));
+	console.log(document.querySelectorAll('#parent>div:nth-child(n+2)'));
+
+
+
+</script>

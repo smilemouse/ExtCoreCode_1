@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DomHelper</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+    <script src="../../../jquery-1.11.2.js"></script>
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 100%;
+			height: 200px;
+			background-color: #ccc;
+		}
+
+		#clock,#clock1{
+			width: 100px;
+			height: 100px;
+			border:1px solid red;
+			background-color: green;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock"></div>
+		<div id="clock1"></div>
+	</div>
+    
+    <table id='table'>
+        <tr id="tr"><td>2314</td></tr>
+    </table>
+
+    <p id="p">
+        
+    </p>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/DomHelper.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+
+    var dh = Ext.DomHelper;
+
+
+
+    var spec = [
+        {
+            id: 'my-ul',
+            tag: 'ul',
+            cls: 'my-list',
+
+            children1: [
+                {tag: 'li', id: 'item0', html: 'List Item 0'},
+                {tag: 'li', id: 'item1', html: 'List Item 1'},
+                {tag: 'li', id: 'item2', html: 'List Item 2'}
+            ],
+            html:'<div>xxxxxxxxxx</div>'
+        }
+    ];
+
+    var testTable=[
+        {
+            id:'my-table',
+            tag:'table',
+            cls:'my-table-cls',
+            cn:[
+                {
+                    tag:'tr',
+                    cn:[
+                        {tag:'td',html:'a'},
+                        {tag:'td',html:'b'},
+                        {tag:'td',html:'c'},
+                        {tag:'td',html:'d'},
+                        {tag:'td',html:'e'}  
+                    ]
+                },
+                {
+                    tag:'tr',
+                    cn:[
+                        {tag:'td',html:'a'},
+                        {tag:'td',html:'b'},
+                        {tag:'td',html:'c'},
+                        {tag:'td',html:'d'},
+                        {tag:'td',html:'e'}  
+                    ]
+                }
+            ] 
+        }
+        
+    ]
+
+    // var list = dh.append(
+    //     'table',
+    //     testTable,
+    //     true
+    // );
+   
+
+    var oTable=document.getElementById('table');
+    var innerHTML='<tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr><tr><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td></tr>'; 
+
+    //oTable.insertAdjacentHTML('afterbegin',innerHTML);
+
+    var oP=document.getElementById('p');
+
+    var innerHTML_P='<ul><li>12312</li></ul>';
+    var innerHTML_P='<p>456</p>';
+    //oP.insertAdjacentHTML('afterbegin',innerHTML_P);
+
+    //oP.innerHTML=innerHTML_P;
+
+    //$(oP).html(innerHTML_P);
+
+
+
+    // dh.append('p',{
+    //     tag:'p',
+    //     cn:[{
+    //         html:'123'
+    //     }]
+    // });
+
+
+    function createContextualFragment(html){
+        var div = document.createElement("div"),
+            fragment = document.createDocumentFragment(),
+            i = 0,
+            length, childNodes;
+        
+        div.innerHTML = html;
+        childNodes = div.childNodes;
+        length = childNodes.length;
+        
+        for (; i < length; i++) {
+            fragment.appendChild(childNodes[i].cloneNode(true));
+        }
+        
+        return fragment;
+    }
+
+    //oP.appendChild(createContextualFragment(innerHTML_P));
+
+
+    (function(){
+        var tempTableEl = null,
+            emptyTags = /^(?:br|frame|hr|img|input|link|meta|range|spacer|wbr|area|param|col)$/i,
+            tableRe = /^table|tbody|tr|td$/i,
+            confRe = /tag|children|cn|html$/i,
+            tableElRe = /td|tr|tbody/i,
+            cssRe = /([a-z0-9-]+)\s*:\s*([^;\s]+(?:\s*[^;\s]+)*);?/gi,
+            endRe = /end/i,
+            pub,
+            // kill repeat to save bytes
+            afterbegin = 'afterbegin',
+            afterend = 'afterend',
+            beforebegin = 'beforebegin',
+            beforeend = 'beforeend',
+            ts = '<table>', //tableStart
+            te = '</table>',//tableEnd
+            tbs = ts+'<tbody>',//tbodyStart  <table><tbdoy>
+            tbe = '</tbody>'+te,//</tbody></table>
+            trs = tbs + '<tr>',//<table><tbdoy><tr>
+            tre = '</tr>'+tbe;//</tr></tbody></table>
+
+        function ieTable(depth, s, h, e){
+            console.log([s, h, e].join(''));
+            tempTableEl.innerHTML = [s, h, e].join('');
+            
+            //return tempTableEl;
+            
+            var i = -1,
+                el = tempTableEl,
+                ns;
+
+            while(++i < depth){
+                el = el.firstChild;
+            }
+
+        //If the result is multiple siblings, then encapsulate them into one fragment.
+            if(ns = el.nextSibling){
+                var df = document.createDocumentFragment();
+                while(el){
+                    ns = el.nextSibling;
+                    df.appendChild(el);
+                    el = ns;
+                }
+                el = df;
+
+                console.log(el);
+            }
+            return el;
+        }
+
+        /**
+         * @ignore
+         * Nasty code for IE's broken table implementation
+         */
+        function insertIntoTable(tag, where, el, html) {
+            var node,
+                before;
+
+            tempTableEl = tempTableEl || document.createElement('div');
+
+            if(tag == 'td' && (where == afterbegin || where == beforeend) ||
+               !tableElRe.test(tag) && (where == beforebegin || where == afterend)) {
+                return;
+            }
+            before = where == beforebegin ? el :
+                     where == afterend ? el.nextSibling :
+                     where == afterbegin ? el.firstChild : null;
+
+
+            console.log(before);
+
+            if (where == beforebegin || where == afterend) {
+                el = el.parentNode;
+            }
+
+            if (tag == 'td' || (tag == 'tr' && (where == beforeend || where == afterbegin))) {
+                console.log(4);
+                node = ieTable(4, trs, html, tre);
+            } else if ((tag == 'tbody' && (where == beforeend || where == afterbegin)) ||
+                       (tag == 'tr' && (where == beforebegin || where == afterend))) {
+                console.log(3);
+                node = ieTable(3, tbs, html, tbe);
+            } else {
+                console.log(2);
+                node = ieTable(2, ts, html, te);
+            }
+            console.log(node);
+            console.log(before);
+            el.insertBefore(node, before);
+            return node;
+        }
+
+
+        var oTable=document.getElementById('table');
+        var oTr=document.getElementById('tr');
+        var html='<div>aaa<span>bbb</span></div> <div>ccc<span>ddd</span></div>';
+        var html1='<tr><td>aaa</td></tr><tr><td>ddd</td></tr>';
+        var html3='<td>aaa</td><td>bbb</td><td>ccc</td><td>ddd</td>';
+
+        insertIntoTable('table','beforeend',oTable,html1);
+
+
+
+
+
+    })()
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+

@@ -84,6 +84,8 @@ Ext.EventManager = function(){
            3 = Adapter Wrapped Function,
            4 = Buffered Task
         */
+        
+
         es[ename].push([fn, wrap, scope, wfn, task]);
 
         // this is a workaround for jQuery and should somehow be removed from Ext Core in the future

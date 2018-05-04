@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>DomQuery</title>
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base-debug.js"></script>
+    <script src="../../../jquery-1.11.2.js"></script>
+	<style type="text/css">
+		*{padding: 0;margin: 0;}
+		div{height: 50px;width: 50px;background-color: #ccc;margin-bottom: 4px;text-align: center;line-height: 50px;}
+		#parent{height: auto;width: auto;position: absolute;background-color: #fff;left: 45%;top: 20%;}
+	</style>
+</head>
+<body>
+	<div id="parent">
+		<div id="c0">c0</div>
+		<div id="c1">c1</div>
+		<div id="c2">c2</div>
+		<div id="c3">c2</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-event.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/Element.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/Element.js"></script>
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/EventManager.js"></script>
+
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/Observable.js"></script> -->
+<script type="text/javascript">
+	var eDiv0=new Ext.Element('c0');
+
+	function mouseenter(){
+		console.log('mouseenter');	
+	}
+
+	function mouseenter2(){
+		console.log('mouseenter2');	
+	}
+
+	function click(){
+		console.log('click');
+	}
+
+	var i=1;
+
+	eDiv0.addListener('click',function(){
+		if(i==1){
+			eDiv0.on('mouseenter',mouseenter);
+		}
+		if(i==2){
+			eDiv0.on('mouseenter',mouseenter2);
+		}
+		i++
+		
+	});
+
+	setTimeout(function(){
+		eDiv0.removeListener('mouseenter',mouseenter2);
+		console.log('remove');
+	}, 5*1000);
+
+	console.log(eDiv0);
+
+</script>

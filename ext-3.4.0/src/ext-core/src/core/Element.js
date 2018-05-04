@@ -948,7 +948,7 @@ function garbageCollect(){
         }
     }
 }
-El.collectorThreadId = setInterval(garbageCollect, 30000);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+El.collectorThreadId = setInterval(garbageCollect, 30000);
 
 var flyFn = function(){};
 flyFn.prototype = El.prototype;

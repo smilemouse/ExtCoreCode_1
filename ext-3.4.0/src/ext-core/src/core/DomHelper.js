@@ -232,7 +232,7 @@ Ext.DomHelper = function(){
      * @ignore
      * Nasty code for IE's broken table implementation
      */
-function insertIntoTable(tag, where, el, html) {
+    function insertIntoTable(tag, where, el, html) {
         var node,
             before;
 
@@ -348,6 +348,7 @@ function insertIntoTable(tag, where, el, html) {
                 if(tableRe.test(el.tagName) && (rs = insertIntoTable(el.tagName.toLowerCase(), where, el, html))){
                     return rs;
                 }
+
                 // add these two to the hash.
                 hash[afterbegin] = ['AfterBegin', 'firstChild'];
                 hash[beforeend] = ['BeforeEnd', 'lastChild'];

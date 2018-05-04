@@ -89,7 +89,9 @@ Ext.DomQuery = function(){
     
     // this eval is stop the compressor from
     // renaming the variable to something shorter
-    eval("var batch = 30803;");    	////一个标识，表示节点是否已经进行过nodeIndex索引//这样的写法，是防止压缩代码名称被压掉
+    eval("var batch = 30803;");    	
+    ////一个标识，表示节点是否已经进行过nodeIndex索引
+    //这样的写法，是防止压缩代码名称被压掉
 
     // Retrieve the child node from a particular
     // parent at the specified index.
@@ -452,6 +454,7 @@ Ext.DomQuery = function(){
             	// accept leading mode switch
             	lmode = path.match(modeRe); // modeRe=/^(\s?[\/>+~]\s?|\s|$)/, 匹配四中选择器开头的情况console.log(">.class")
             
+            console.log(lmode);
 
             if(lmode && lmode[1]){
                 fn[fn.length] = 'mode="'+lmode[1].replace(trimRe, "")+'";';
@@ -466,7 +469,7 @@ Ext.DomQuery = function(){
             while(path && lastPath != path){
                 lastPath = path;
                 var tokenMatch = path.match(tagTokenRe);//tagTokenRe=/^(#)?([\w\-\*]+)/,判断是标签 # 或者通配符选择器
-                
+                console.log(tokenMatch);
               
 
                 if(type == "select"){
@@ -492,16 +495,17 @@ Ext.DomQuery = function(){
                         path = path.replace(tokenMatch[0], "");
                     }
                 }
-                
+                //modeRe=/^(\s?[\/>+~]\s?|\s|$)/,  不符合条件的情况 
+                //包括了matchers
                 while(!(modeMatch = path.match(modeRe))){
                     var matched = false;
                     for(var j = 0; j < matchersLn; j++){
                         var t = matchers[j];
                         var m = path.match(t.re);
-                        console.log(m);
                         if(m){
-                            fn[fn.length] = t.select.replace(tplRe, function(x, i){return m[i];});
-                            console.log(fn[fn.length-1]);
+                            fn[fn.length] = t.select.replace(tplRe, function(x, i){
+                                return m[i];
+                            });
                             path = path.replace(m[0], "");
                             matched = true;
                             break;
@@ -519,7 +523,8 @@ Ext.DomQuery = function(){
             }
 	    // close fn out
             fn[fn.length] = "return nodup(n);\n}";
-	    
+
+	       console.log(fn);
 	    // eval fn and return it
             eval(fn.join(""));
             return f;
@@ -688,6 +693,7 @@ Ext.DomQuery = function(){
          * statement as specified by their index.
          */
         matchers : [{
+                
                 re: /^\.([\w\-]+)/,
                 select: 'n = byClassName(n, " {1} ");'
             }, {
@@ -809,6 +815,37 @@ var externalLinks = Ext.select("a:external");
                 }
 
                 return r;
+            },
+
+            "nth-child1" : function(nodeList, selector) {
+                var ret = [],
+                    reg = /(-?\d*)[n]*([+-]\d+)*/,
+                    m = selector.match(reg);
+                if (selector === m[1]) { // nth-child:(2) - 纯数字,直接返回
+                    return [nodeList[(parseInt(m[1]) - 1)]];
+                }
+                var filter = function(i) {
+                    ++i; //nth从1开始, elem从0开始，elem的index要+1
+                    if (m[2]) { // 类似：nth-child:(-2n-1) / nth-child(n+2)
+                        if ('' === m[1]) { // nth-child(n+2)
+                            m[1] = 1;
+                        } else if ('-' === m[1]) { // nth-child(-n+2)
+                            m[1] = -1;
+                        } // else nth-child(-2n-1) / nth-child(2n+10)
+                    } else { // nth-child:(2n)
+                        m[2] = 0;
+                    }
+                    var n = (i - parseInt(m[2])) / parseInt(m[1]);
+                    // 正整数返回true
+                    return (n === parseInt(n) && n >= 0) ? true : false;
+                }
+                Ext.each(nodeList, function(i) { //each 方法需要单独写
+                    if (filter(i)) {
+                        ret.push(this)
+                    }
+                });
+                return ret;
+
             },
 
             "only-child" : function(c){
