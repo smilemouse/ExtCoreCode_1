@@ -728,9 +728,9 @@ el.un('click', this.handlerFn);
                 }
                 return value || '';
             };
-        } else {
+         }else {
             return function(name, ns) {
-                var el = this.om,
+                var el = this.dom,
                     value,
                     attribute;
                 

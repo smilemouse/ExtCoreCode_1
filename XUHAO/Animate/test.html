@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试代码库</title>
+	<script type="text/javascript" src="src/SimpleAnim.js"></script>
+	<style type="text/css">
+		*{padding:0;margin:0;}
+
+		div{
+			height: 100px;
+			width: 100px;
+			background-color: red;
+			filter:Alpha(Opacity=50);
+		}
+
+	</style>
+</head>
+<body>
+	<div>123123</div>	
+</body>
+</html>
+
+<script type="text/javascript">
+	function aa(){}
+	var oDiv=document.getElementsByTagName('div')[0];
+	var eDiv=new SimpleAnim.Element(oDiv);
+	console.log(eDiv.getStyle('height'));
+	eDiv.setStyle('height','500px')
+</script>

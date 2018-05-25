@@ -331,6 +331,7 @@ Ext.lib.Ajax = function() {
 //  This is never called - Is it worth exposing this?
 //          setDefaultXhrHeader : function(b) {
 //              this.useDefaultXhrHeader = b;
+//              
 //          },
 
 //  This is never called - Is it worth exposing this?

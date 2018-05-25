@@ -35,48 +35,6 @@
             "path": "src/ext-core/src/adapter/"
         }]
     },{
-        "name": "YUI Adapter",
-        "file": "adapter/yui/ext-yui-adapter.js",
-        "isDebug": true,
-        "fileIncludes": [{
-            "text": "Ext.js",
-            "path": "src/ext-core/src/core/"
-        },{
-            "text": "TaskMgr.js",
-            "path": "src/ext-core/src/util/"
-        },{
-            "text": "yui-bridge.js",
-            "path": "src/adapter/"
-        }]
-    },{
-        "name": "Prototype Adapter",
-        "file": "adapter/prototype/ext-prototype-adapter.js",
-        "isDebug": true,
-        "fileIncludes": [{
-            "text": "Ext.js",
-            "path": "src/ext-core/src/core/"
-        },{
-            "text": "TaskMgr.js",
-            "path": "src/ext-core/src/util/"
-        },{
-            "text": "prototype-bridge.js",
-            "path": "src/adapter/"
-        }]
-    },{
-        "name": "jQuery Adapter",
-        "file": "adapter/jquery/ext-jquery-adapter.js",
-        "isDebug": true,
-        "fileIncludes": [{
-            "text": "Ext.js",
-            "path": "src/ext-core/src/core/"
-        },{
-            "text": "TaskMgr.js",
-            "path": "src/ext-core/src/util/"
-        },{
-            "text": "jquery-bridge.js",
-            "path": "src/adapter/"
-        }]
-    },{
         "name": "Ext Core",
         "file": "pkgs/ext-core.js",
         "isDebug": true,

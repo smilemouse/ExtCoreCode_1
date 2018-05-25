@@ -20,10 +20,11 @@
 		}
 
 		#clock{
+			position: relative;
 			width: 200px;
 			height: 200px;
 			border:1px solid red;
-			background-color: green;
+			background-color: green !important;
 		}
 	
 	</style>
@@ -32,27 +33,25 @@
 <body>
 	
 	<div id='motion'>
-		<div id="clock"></div>
+		<div id="clock" style="background-color: blue !important"></div>
 	</div>
 
-	<div id='toolbar'>
-		
-	</div>
-	
 
+	<div id='toolbar'></div>
 	
 </body>
 </html>
 <script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
 
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/Observable.js"></script>
 
-<!-- <script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-anim.js"></script> -->
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/adapter/ext-base-anim.js"></script>
 <!-- <script type="text/javascript" src="../../../Libs/xuhao-util/TaskMgr.js"></script> -->
 <script type="text/javascript">
 
-	Ext.lib.Anim.motion('clock', {opacity : {to :1},xy:[800,600]}, 2, 'easeOut', function(a,b,c,d,e,f,g){
-		console.log('end');
-	}, window);
+	// Ext.lib.Anim.motion('clock', {opacity : {to :1},xy:[800,600]}, 2, 'easeOut', function(a,b,c,d,e,f,g){
+	// 	console.log('end');
+	// }, window);
 
 	var clock1=Ext.fly('clock');
 
@@ -152,12 +151,31 @@
 
 				}
 			},
-
-
-
-
 		]
 	});
+
+
+
+	var anim=Ext.lib.Anim.motion(
+		clock1,
+		{top: { from:[10,20,30],by:[50,10,30] },height: { to: 50 }},
+		//{offsetLeft:500},
+		3,
+		Ext.lib.Easing.easeOutBounce,
+		function(){console.log('over');},
+		clock1
+	);
+
+	
+
+
+
+	
+
+
+
+
+
 
 
 </script>

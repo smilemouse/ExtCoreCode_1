@@ -270,8 +270,6 @@ buffer：在事件发生延迟一段进间才执行，同时会创建一个Ext.u
 		this.obj=obj; //事件生效的对象
 		this.listeners=[];//存储的事件
 
-
-
 	}
 
 	XUHAOUTIL.prototype={
@@ -289,8 +287,6 @@ buffer：在事件发生延迟一段进间才执行，同时会创建一个Ext.u
 				}
 				me.listeners.push(l);
 			}
-
-
 		},
 
 		createListener:function(fn,scope,o){
