@@ -14,14 +14,15 @@
 		}
 		
 		#motion{
-			width: 100%;
+			width: 200px;
 			height: 500px;
 			background-color: #ccc;
 		}
 
 		#clock{
 			position: relative;
-			width: 200px;
+			/*width: 200px;*/
+			/*width: auto;*/
 			height: 200px;
 			border:1px solid red;
 			background-color: green !important;
@@ -158,7 +159,7 @@
 
 	var anim=Ext.lib.Anim.motion(
 		clock1,
-		{top: { from:[10,20,30],by:[50,10,30] },height: { to: 50 }},
+		{top: { from:[10,20,30],by:[50,10,30] },height: { to: 50 },width:{to:'auto'}},
 		//{offsetLeft:500},
 		3,
 		Ext.lib.Easing.easeOutBounce,

@@ -236,7 +236,7 @@ Ext.Ajax.request({
                         Ext.getDom(o.el).innerHTML = response.responseText;
                     });
                 }
-
+               
                 var p = o.params,
                     url = o.url || me.url,
                     method,

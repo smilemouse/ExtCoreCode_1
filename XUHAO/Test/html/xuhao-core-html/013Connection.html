@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试Connection</title>
+	
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base.js"></script>
+
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 200px;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock{
+			position: relative;
+			/*width: 200px;*/
+			/*width: auto;*/
+			height: 200px;
+			border:1px solid red;
+			background-color: green !important;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock" style="background-color: blue !important"></div>
+	</div>
+
+
+	<div id='toolbar'></div>
+
+	<form action="" id="form"></form>
+	
+</body>
+</html>
+<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/Observable.js"></script>
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/data/Connection.js"></script>
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/TaskMgr.js"></script> -->
+<script type="text/javascript">
+
+	// Ext.Ajax.on('beforerequest',function(a,b,c,d){
+
+	// 	console.log(this);
+	// 	console.log('nimabi');
+	// 	console.log(a);
+	// 	console.log(b);
+	// 	console.log(c);
+	// 	console.log(d);
+
+		
+	// },this);
+
+	Ext.Ajax.request({
+		nimabo:'hahah',
+		method:'post',
+		disableCaching:false,
+		params:function(){
+
+			console.log(this);
+
+		},
+		form:document.getElementById('form'),
+		isUpload:false,
+		scope:'aaaa'
+	});
+
+
+
+</script>
+
+
+

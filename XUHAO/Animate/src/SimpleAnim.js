@@ -71,6 +71,20 @@ SimpleAnim.copy=function(obj,copy,defaults){
 					}
 				}
 			}
+		},
+
+		each:function(array,fn,scope){
+
+			if(this.type(array)=='array'){
+
+				for(var i=0,len=array.lenght;i<len;i++){
+					if(fn.call(scope||array[i],array[i],i,array)==false){
+						return i;
+					}
+				}
+			}
+
+
 		}
 
 	});

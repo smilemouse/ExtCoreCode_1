@@ -4,10 +4,14 @@
 	<meta charset="UTF-8">
 	<title>测试代码库</title>
 	<script type="text/javascript" src="src/SimpleAnim.js"></script>
+	<script type="text/javascript" src="src/SimpleAnim.Anim.js"></script>
+	<script type="text/javascript" src="src/SimpleAnim.Observable.js"></script>
 	<style type="text/css">
 		*{padding:0;margin:0;}
 
 		div{
+			position: relative;
+			margin: 0 auto;
 			height: 100px;
 			width: 100px;
 			background-color: red;
@@ -26,5 +30,46 @@
 	var oDiv=document.getElementsByTagName('div')[0];
 	var eDiv=new SimpleAnim.Element(oDiv);
 	console.log(eDiv.getStyle('height'));
-	eDiv.setStyle('height','500px')
+	//eDiv.setStyle('height','200px');
+
+	var tween=new SimpleAnim.lib.AnimBase(
+		eDiv,
+		{
+			// height:{to:500},
+			// width:{to:1000},
+			left:{to:800},
+			opacity:{to:0.3}
+		},
+		3,
+		null
+	);
+
+	tween.animate();
+
+	var ss={};
+
+	function testEvent(){
+		console.log('yes');
+	}
+
+	function testEvent1(){
+		console.log('yes1');
+	}
+
+
+
+	
+
+
+	var TestEven=new SimpleAnim.util.Event(ss,'justSoSo')
+	TestEven.addListener(testEvent,null,{name:'xuhao'});
+	TestEven.addListener(testEvent1,null,{name:'xuhao1'});
+
+	TestEven.fire();
+
+	console.log(TestEven);
+
+
+
+
 </script>
