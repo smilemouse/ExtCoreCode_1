@@ -88,6 +88,12 @@
 				//ajax表单提交
 				if((form=XUHAO.getDom(o.form))){
 					url=url||form.action;
+
+					/*application/x-www-form-urlencoded	在发送前编码所有字符（默认）
+					multipart/form-data	不对字符编码。
+					在使用包含文件上传控件的表单时，必须使用该值。
+					text/plain	空格转换为 "+" 加号，但不对特殊字符编码(HTML5)。*/
+
 					if(o.isUpload||(/multipart\/form-data/i.test(form.getAttribute('enctype')))){
 						return doFormUpload.call(me,o,p,url);
 					}
@@ -154,10 +160,109 @@
             if(options.callback){
                 options.callback.call(options.scope, options, false, response);
             }
+        },
+
+        doFormUpload:function(){
+        	var id=XUHAO.id(),
+        		doc=document,
+        		frame=doc.createElement('iframe'),
+        		form=XUHAO.getDom(o.form),
+        		hiddens=[],
+        		hd,
+        		encoding='multipart/form-data',
+        		buf={
+        			target:form.target,
+        			method:form.method,
+        			encoding:form.encoding,
+        			enctype:form.enctype,
+        			action:form.action
+        		};
+
+        	XUHAO.fly(frame).set({
+        		id:id,
+        		name:id,
+        		cls:'x-hidden',
+        		src:XUHAO.SSL_SCURE_URL
+        	});
+
+        	doc.body.appendChild(frame);
+
+        	if(XUHAO.isIE){
+        		doc.frames[id].name=id;
+        	}
+        	XUHAO.fly(form).set({
+        		target:id,
+        		method:POST,
+        		enctype:encoding,
+        		encoding:encoding,
+        		action:url||bug.action
+        	});
+        	XUHAO.iterate(Ext.urlDecode(ps, false), function(k, v){
+                hd = doc.createElement('input');
+                Ext.fly(hd).set({
+                    type: 'hidden',
+                    value: v,
+                    name: k
+                });
+                form.appendChild(hd);
+                hiddens.push(hd);
+            });
+
+            function cb(){
+            	var me=this,
+            		r={
+            			responseText:'',
+            			responseXML:null,
+            			argument:o.argument
+            		},
+            		doc,
+            		firstChild;
+
+            	try{
+            		doc=frame.contentWindow.document||frame.contentDocument||WINDOW.frames[id].document;
+            		if(doc){
+            			if(doc.body){
+            				if(/textarea/i.test((firstChild=doc.body.firstChild||{}).tagName)){
+            					r.responseText=firstChild.value;
+            				}else{
+            					r.responseText=doc.body.innerHTML;
+            				}
+            			}
+            			r.responseXML = doc.XMLDocument || doc;
+            		}
+            	}catche(e){}
+
+            	XUHAO.EventManager.removeListener(frame,LOAD,cb,me);
+            	me.fireEvent(REQUESTCOMPLETE,me,r,o);
+
+            	function runCallback(fn,scope,args){
+            		if(XUHAO.isFunction(fn)){
+            			fn.apply(scope,args);
+            		}
+            	}
+
+            	runCallback(o.success,o.scope,[r,o]);
+            	runCallback(o.callback,o.scope,[o,true,r]);
+
+            	if(!me.debugUploads){
+            		setTimout(function(){XUHAO.removeNode(frame);},100);
+            	}
+            }
+            XUHAO.EventManager.on(frame,LOAD,cb,this);
+            form.submit();
+            XUHAO.fly(form).set(buf);
+            XUHAO.each(hiddens, function(h) {
+                XUHAO.removeNode(h);
+            });
         }
 
 	})
 
+})();
 
-
-})()
+XUHAO.Ajax=new XUHAO.data.Connection({
+	autoAbort:false,
+	serializeForm:function(form){
+		return XUHAO.lib.Ajax.serializeForm(form);
+	}
+});

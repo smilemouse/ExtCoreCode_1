@@ -40,7 +40,12 @@
 
 	<div id='toolbar'></div>
 
-	<form action="" id="form"></form>
+	<form action="" id="form">
+		<input type="text" value="123">
+		<input type="text" value="456">
+	</form>
+
+	<iframe src="about:blank" frameborder="0" id="iframe" width="100" height="100"></iframe>
 	
 </body>
 </html>
@@ -68,15 +73,23 @@
 		nimabo:'hahah',
 		method:'post',
 		disableCaching:false,
-		params:function(){
-
-			console.log(this);
-
+		params:{
+			nimabi:'ccccc'
 		},
 		form:document.getElementById('form'),
-		isUpload:false,
+		isUpload:true,
 		scope:'aaaa'
 	});
+
+	var oIframe=document.getElementById('iframe')
+	var oInput=document.createElement('input');
+		oInput.type='text';
+		oInput.value='123';
+
+	oIframe.appendChild(oInput);
+
+
+	//console.log(oIframe.childNodes);
 
 
 

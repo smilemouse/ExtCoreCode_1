@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>测试基本事件</title>
+	<!-- <script type="text/javascript" src="../../../Libs/xuhao-core/XUHAO.js"></script> -->
+	<script type="text/javascript" src="../../../../ext-3.4.0/adapter/ext/ext-base-debug.js"></script>
+	<script type="text/javascript" src="../../../../ext-3.4.0/ext-all-debug.js"></script>
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/util/Observable.js"></script>
+
+<script type="text/javascript" src="../../../../ext-3.4.0/src/ext-core/src/core/EventManager.js"></script>
+	<style type="text/css">
+		
+		*{
+			padding: 0 0;
+			margin:0 0;
+		}
+		
+		#motion{
+			width: 200px;
+			height: 500px;
+			background-color: #ccc;
+		}
+
+		#clock{
+			position: relative;
+			/*width: 200px;*/
+			/*width: auto;*/
+			height: 200px;
+			border:1px solid red;
+			background-color: green !important;
+		}
+	
+	</style>
+</head>
+
+<body>
+	
+	<div id='motion'>
+		<div id="clock" style="background-color: blue !important"></div>
+	</div>
+
+
+	<div id='toolbar'></div>
+
+	<div style="height:30px;width:50px;">
+	    <div style="height:20px;width:20px;"></div>
+	</div>
+	<div style="float:left;background-color:transparent;">
+
+</body>
+</html>
+
+<!-- <script type="text/javascript" src="../../../Libs/xuhao-util/TaskMgr.js"></script> -->
+<script type="text/javascript">
+
+	document.onkeypress=function(e){
+
+		console.log(e.keyCode);
+		console.log(e.charCode);
+
+	}
+
+	document.onmousedown=function(e){
+		ev=window.event||e;
+		 
+	
+
+		console.log(ev.button);
+		console.log(ev.which);
+		//console.log(ev.keyCode);
+
+		//console.log(ev.which);
+		//console.log(ev.charCode);
+
+	}
+
+	document.onmousewheel=function(e){
+		ev=window.event||e;
+		 
+	
+
+		//console.log(ev.detail);
+		console.log(ev.wheelDelta/120);
+		//console.log(ev.keyCode);
+
+		//console.log(ev.which);
+		//console.log(ev.charCode);
+
+	}
+
+
+
+	Ext.iterate(Ext.supports,function(attr,value){
+
+		console.log(attr+" : "+value);
+
+	})
+
+	var oToolbar=document.getElementById('toolbar')
+
+
+</script>
+
+
+

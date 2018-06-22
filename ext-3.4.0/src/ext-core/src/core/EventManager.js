@@ -133,10 +133,13 @@ Ext.EventManager = function(){
         if(Ext.isIE && doScrollChk()){
             return true;
         }
+        console.log(docReadyState);
+        console.log(DOC.readyState);
         if(DOC.readyState == COMPLETE){
             fireDocReady();
             return true;
         }
+        console.log(docReadyState);
         docReadyState || (docReadyProcId = setTimeout(arguments.callee, 2));
         return false;
     }
@@ -208,6 +211,7 @@ Ext.EventManager = function(){
 
         }else if (Ext.isWebKit){
             //Fallback for older Webkits without DOMCONTENTLOADED support
+           
             checkReadyState();
         }
         // no matter what, make sure it fires on load
